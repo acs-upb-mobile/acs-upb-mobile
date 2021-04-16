@@ -20,8 +20,9 @@ class UniEventWidget extends StatelessWidget {
     final color = event.color ??
         event?.mainEvent?.color ??
         Theme.of(context).primaryColor;
-    final footer =
-        (event.location?.isNotEmpty ?? false) ? event.location : event.info;
+    final footer = (event.location?.isNotEmpty ?? false)
+        ? event.id.toString().substring(20)
+        : event.id.toString();
 
     return GestureDetector(
       onTap: () => Navigator.of(context).push(MaterialPageRoute<EventView>(

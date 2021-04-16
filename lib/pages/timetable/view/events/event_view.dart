@@ -16,6 +16,10 @@ import 'package:acs_upb_mobile/widgets/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
+import 'package:acs_upb_mobile/widgets/button.dart';
+import 'package:acs_upb_mobile/widgets/dialog.dart';
+import 'package:acs_upb_mobile/pages/timetable/service/uni_event_provider.dart';
+import 'package:acs_upb_mobile/navigation/routes.dart';
 import 'package:time_machine/time_machine.dart';
 import 'package:timetable/timetable.dart';
 
@@ -54,6 +58,7 @@ class EventView extends StatefulWidget {
 }
 
 class _EventViewState extends State<EventView> {
+  final _formKey = GlobalKey<FormState>();
   Padding _colorIcon() => Padding(
         padding: const EdgeInsets.all(10),
         child: Container(
@@ -92,7 +97,11 @@ class _EventViewState extends State<EventView> {
               } else {
                 AppToast.show(S.of(context).errorPermissionDenied);
               }
-            })
+            }),
+        if (Provider.of<AuthProvider>(context, listen: false)
+            .currentUserFromCache
+            .canAddPublicInfo)
+          _disableInstanceButton()
       ],
       body: SafeArea(
         child: ListView(children: [
@@ -209,4 +218,37 @@ class _EventViewState extends State<EventView> {
       ),
     );
   }
+
+  AppDialog _disableConfirmationDialog(BuildContext context) => AppDialog(
+        icon: const Icon(Icons.delete),
+        title: S.of(context).actionCancelInstance,
+        info: S.of(context).messageThisCouldAffectOtherStudents,
+        message: S.of(context).messageCancelInstance,
+        actions: [
+          AppButton(
+            text: S.of(context).actionCancelInstance,
+            width: 130,
+            onTap: () async {
+              final res =
+                  await Provider.of<UniEventProvider>(context, listen: false)
+                      .disableInstance(widget.event, context: context);
+              if (res) {
+                Navigator.of(context)
+                    .popUntil(ModalRoute.withName(Routes.home));
+                AppToast.show(S.of(context).messageInstanceCanceled);
+              }
+            },
+          )
+        ],
+      );
+
+  AppScaffoldAction _disableInstanceButton() => AppScaffoldAction(
+        icon: Icons.more_vert,
+        items: {
+          S.of(context).actionCancelInstance: () =>
+              showDialog(context: context, builder: _disableConfirmationDialog)
+        },
+        onPressed: () =>
+            showDialog(context: context, builder: _disableConfirmationDialog),
+      );
 }

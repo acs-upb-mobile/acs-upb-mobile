@@ -896,6 +896,16 @@ class S {
     );
   }
 
+  /// `Cancel instance of event`
+  String get actionCancelInstance {
+    return Intl.message(
+      'Cancel Instance',
+      name: 'actionCancelInstance',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Choose classes`
   String get actionChooseClasses {
     return Intl.message(
@@ -2161,6 +2171,26 @@ class S {
     return Intl.message(
       'Event deleted successfully.',
       name: 'messageEventDeleted',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// 'Are you sure you want to cancel this instance of the event?'
+  String get messageCancelInstance {
+    return Intl.message(
+      'Are you sure you want to cancel this instance of the event?',
+      name: 'messageCancelInstance',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Instance disabled successfully.`
+  String get messageInstanceCanceled {
+    return Intl.message(
+      'Instance canceled successfully.',
+      name: 'messageInstanceCanceled',
       desc: '',
       args: [],
     );

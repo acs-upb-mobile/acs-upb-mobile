@@ -104,6 +104,7 @@ class UniEvent {
     this.relevance,
     this.degree,
     this.addedBy,
+    this.modifiedInstances,
   });
 
   final String id;
@@ -118,6 +119,7 @@ class UniEvent {
   final String degree;
   final List<String> relevance;
   final String addedBy;
+  final Map<String, dynamic> modifiedInstances;
 
   Iterable<UniEventInstance> generateInstances(
       {DateInterval intersectingInterval}) sync* {
@@ -140,16 +142,17 @@ class UniEvent {
 }
 
 class UniEventInstance extends Event {
-  UniEventInstance({
-    @required String id,
-    @required this.title,
-    @required this.mainEvent,
-    @required LocalDateTime start,
-    @required LocalDateTime end,
-    Color color,
-    this.location,
-    this.info,
-  })  : color = color ?? mainEvent?.color,
+  UniEventInstance(
+      {@required String id,
+      @required this.title,
+      @required this.mainEvent,
+      @required LocalDateTime start,
+      @required LocalDateTime end,
+      Color color,
+      this.location,
+      this.info,
+      this.active})
+      : color = color ?? mainEvent?.color,
         super(id: id, start: start, end: end);
 
   final UniEvent mainEvent;
@@ -158,6 +161,7 @@ class UniEventInstance extends Event {
   final Color color;
   final String location;
   final String info;
+  final bool active;
 
   @override
   bool operator ==(dynamic other) =>
@@ -165,7 +169,8 @@ class UniEventInstance extends Event {
       color == other.color &&
       location == other.location &&
       mainEvent == other.mainEvent &&
-      title == other.title;
+      title == other.title &&
+      active == other.active;
 
   @override
   int get hashCode =>

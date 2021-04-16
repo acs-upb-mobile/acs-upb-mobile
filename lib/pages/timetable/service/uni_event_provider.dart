@@ -108,6 +108,9 @@ extension UniEventExtension on UniEvent {
             ? null
             : List<String>.from(json['relevance']),
         addedBy: json['addedBy'],
+        modifiedInstances: json['modifiedInstances'] == null
+            ? null
+            : Map<String, dynamic>.from(json['modifiedInstances']),
       );
     } else if (json['rrule'] != null && json['teacher'] != null) {
       return ClassEvent(
@@ -168,6 +171,8 @@ extension UniEventExtension on UniEvent {
 
     if (this is RecurringUniEvent) {
       json['rrule'] = (this as RecurringUniEvent).rrule.toString();
+      json['modifiedInstances'] =
+          (this as RecurringUniEvent).modifiedInstances.toString();
     }
 
     if (this is AllDayUniEvent) {
@@ -383,6 +388,11 @@ class UniEventProvider extends EventProvider<UniEventInstance>
       _errorHandler(e, context);
       return false;
     }
+  }
+
+  Future<bool> disableInstance(UniEventInstance event,
+      {BuildContext context}) async {
+    return true;
   }
 
   @override
