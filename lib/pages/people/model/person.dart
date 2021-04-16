@@ -5,7 +5,8 @@ class Person {
       this.phone,
       this.office,
       this.position,
-      this.photo});
+      this.photo,
+      this.source});
 
   final String name;
   final String email;
@@ -13,6 +14,7 @@ class Person {
   final String office;
   final String position;
   final String photo;
+  final String source;
 
   @override
   int get hashCode => name.hashCode;

@@ -39,7 +39,7 @@ class _GradingChartState extends State<GradingChart> {
 
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(8),
+        padding: const EdgeInsets.all(10),
         child: Column(
           children: <Widget>[
             if (widget.withHeader)
@@ -66,7 +66,7 @@ class _GradingChartState extends State<GradingChart> {
                         : () => AppToast.show(
                             S.of(context).warningNoPermissionToEditClassInfo),
                     child: IconButton(
-                      icon: const Icon(Icons.edit),
+                      icon: const Icon(Icons.edit_outlined),
                       onPressed:
                           authProvider.currentUserFromCache.canEditClassInfo
                               ? () => Navigator.of(context).push(
@@ -99,7 +99,7 @@ class _GradingChartState extends State<GradingChart> {
               )
             else
               Padding(
-                padding: const EdgeInsets.all(8),
+                padding: const EdgeInsets.all(10),
                 child: Center(
                   child: Text(
                     S.of(context).labelUnknown,
@@ -227,7 +227,7 @@ class _GradingViewState extends State<GradingView> {
               controller: nameController,
               decoration: InputDecoration(
                 hintText: S.of(context).hintEvaluation,
-                prefixIcon: const Icon(Icons.label),
+                prefixIcon: const Icon(Icons.label_outlined),
               ),
               validator: (value) {
                 if (i == focusNodes.length - 2) {
@@ -310,7 +310,7 @@ class _GradingViewState extends State<GradingView> {
         body: ListView(
           children: [
             Padding(
-              padding: const EdgeInsets.all(8),
+              padding: const EdgeInsets.all(10),
               child: GradingChart(
                 grading: grading,
                 withHeader: false,
@@ -323,7 +323,7 @@ class _GradingViewState extends State<GradingView> {
                 child: Column(
                   children: <Widget>[
                         Padding(
-                          padding: const EdgeInsets.all(8),
+                          padding: const EdgeInsets.all(10),
                           child: Row(
                             children: [
                               Expanded(

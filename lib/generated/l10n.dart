@@ -14,23 +14,22 @@ import 'intl/messages_all.dart';
 
 class S {
   S();
-
+  
   static S current;
-
-  static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
+  
+  static const AppLocalizationDelegate delegate =
+    AppLocalizationDelegate();
 
   static Future<S> load(Locale locale) {
-    final name = (locale.countryCode?.isEmpty ?? false)
-        ? locale.languageCode
-        : locale.toString();
-    final localeName = Intl.canonicalizedLocale(name);
+    final name = (locale.countryCode?.isEmpty ?? false) ? locale.languageCode : locale.toString();
+    final localeName = Intl.canonicalizedLocale(name); 
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
       S.current = S();
-
+      
       return S.current;
     });
-  }
+  } 
 
   static S of(BuildContext context) {
     return Localizations.of<S>(context, S);
@@ -486,6 +485,16 @@ class S {
     );
   }
 
+  /// `All`
+  String get labelAll {
+    return Intl.message(
+      'All',
+      name: 'labelAll',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Shortcuts`
   String get sectionShortcuts {
     return Intl.message(
@@ -541,6 +550,16 @@ class S {
     return Intl.message(
       'Grading',
       name: 'sectionGrading',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Information sources`
+  String get sectionInformationSources {
+    return Intl.message(
+      'Information sources',
+      name: 'sectionInformationSources',
       desc: '',
       args: [],
     );
@@ -671,6 +690,16 @@ class S {
     return Intl.message(
       '4.0',
       name: 'hintPoints',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please select the sources that you want to see information from:`
+  String get hintSelectSources {
+    return Intl.message(
+      'Please select the sources that you want to see information from:',
+      name: 'hintSelectSources',
       desc: '',
       args: [],
     );
@@ -1626,6 +1655,66 @@ class S {
     );
   }
 
+  /// `Official web pages`
+  String get sourceOfficial {
+    return Intl.message(
+      'Official web pages',
+      name: 'sourceOfficial',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `acs.pub.ro, upb.ro, curs.upb.ro, studenti.pub.ro`
+  String get sourceOfficialWebPages {
+    return Intl.message(
+      'acs.pub.ro, upb.ro, curs.upb.ro, studenti.pub.ro',
+      name: 'sourceOfficialWebPages',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Student organizations`
+  String get sourceOrganization {
+    return Intl.message(
+      'Student organizations',
+      name: 'sourceOrganization',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `LSAC, BEST, MLSA`
+  String get sourceStudentOrganizations {
+    return Intl.message(
+      'LSAC, BEST, MLSA',
+      name: 'sourceStudentOrganizations',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Representative students`
+  String get sourceStudentRepresentative {
+    return Intl.message(
+      'Representative students',
+      name: 'sourceStudentRepresentative',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `group/series representatives, student council members`
+  String get sourceStudentExamples {
+    return Intl.message(
+      'group/series representatives, student council members',
+      name: 'sourceStudentExamples',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Bachelor's`
   String get filterNodeNameBSc {
     return Intl.message(
@@ -1696,6 +1785,66 @@ class S {
     );
   }
 
+  /// `Data control`
+  String get settingsTitleDataControl {
+    return Intl.message(
+      'Data control',
+      name: 'settingsTitleDataControl',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your editing permissions`
+  String get settingsItemEditingPermissions {
+    return Intl.message(
+      'Your editing permissions',
+      name: 'settingsItemEditingPermissions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No special permissions`
+  String get settingsPermissionsNone {
+    return Intl.message(
+      'No special permissions',
+      name: 'settingsPermissionsNone',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Permission to add public info`
+  String get settingsPermissionsAdd {
+    return Intl.message(
+      'Permission to add public info',
+      name: 'settingsPermissionsAdd',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Permission to edit public info`
+  String get settingsPermissionsEdit {
+    return Intl.message(
+      'Permission to edit public info',
+      name: 'settingsPermissionsEdit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Permissions request already sent`
+  String get settingsPermissionsRequestSent {
+    return Intl.message(
+      'Permissions request already sent',
+      name: 'settingsPermissionsRequestSent',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Language`
   String get settingsItemLanguage {
     return Intl.message(
@@ -1731,6 +1880,16 @@ class S {
     return Intl.message(
       'Auto',
       name: 'settingsItemLanguageAuto',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Data`
+  String get settingsTitleData {
+    return Intl.message(
+      'Data',
+      name: 'settingsTitleData',
       desc: '',
       args: [],
     );
@@ -2366,6 +2525,16 @@ class S {
     );
   }
 
+  /// `ACS UPB Mobile aims to be an information hub for students, therefore it aggregates data from various sources (official or unofficial).`
+  String get messageSelectSource {
+    return Intl.message(
+      'ACS UPB Mobile aims to be an information hub for students, therefore it aggregates data from various sources (official or unofficial).',
+      name: 'messageSelectSource',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Please check your inbox for the password reset e-mail.`
   String get infoPasswordResetEmailSent {
     return Intl.message(
@@ -2476,6 +2645,36 @@ class S {
     );
   }
 
+  /// `Loading...`
+  String get infoLoading {
+    return Intl.message(
+      'Loading...',
+      name: 'infoLoading',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Read the {appName} policy`
+  String infoReadThePolicy(Object appName) {
+    return Intl.message(
+      'Read the $appName policy',
+      name: 'infoReadThePolicy',
+      desc: '',
+      args: [appName],
+    );
+  }
+
+  /// `The Faculty of Automatic Control and Computers is not responsible for information originating from unofficial sources.`
+  String get infoAdditionInformationSources {
+    return Intl.message(
+      'The Faculty of Automatic Control and Computers is not responsible for information originating from unofficial sources.',
+      name: 'infoAdditionInformationSources',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `@stud.acs.upb.ro`
   String get stringEmailDomain {
     return Intl.message(
@@ -2539,10 +2738,8 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
 
   @override
   bool isSupported(Locale locale) => _isSupported(locale);
-
   @override
   Future<S> load(Locale locale) => S.load(locale);
-
   @override
   bool shouldReload(AppLocalizationDelegate old) => false;
 

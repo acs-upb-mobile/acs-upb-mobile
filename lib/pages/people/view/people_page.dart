@@ -34,43 +34,41 @@ class _PeoplePageState extends State<PeoplePage> {
     return AppScaffold(
       actions: [
         AppScaffoldAction(
-          icon: Icons.search,
+          icon: Icons.search_outlined,
           onPressed: () {
             setState(() => searchClosed = !searchClosed);
           },
         )
       ],
       title: Text(S.of(context).navigationPeople),
-      body: Container(
-        child: FutureBuilder(
-            future: people,
-            builder: (_, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                peopleData = snapshot.data;
-                return Column(
-                  children: [
-                    SearchWidget(
-                      onSearch: (searchText) {
-                        setState(() => filter = searchText);
-                      },
-                      cancelCallback: () {
-                        setState(() {
-                          searchClosed = true;
-                          filter = '';
-                        });
-                      },
-                      searchClosed: searchClosed,
-                    ),
-                    Expanded(
-                        child:
-                            PeopleList(people: filteredPeople, filter: filter))
-                  ],
-                );
-              } else {
-                return const Center(child: CircularProgressIndicator());
-              }
-            }),
-      ),
+      body: FutureBuilder(
+          future: people,
+          builder: (_, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              peopleData = snapshot.data;
+              return Column(
+                children: [
+                  SearchWidget(
+                    onSearch: (searchText) {
+                      setState(() => filter = searchText);
+                    },
+                    cancelCallback: () {
+                      setState(() {
+                        searchClosed = true;
+                        filter = '';
+                      });
+                    },
+                    searchClosed: searchClosed,
+                  ),
+                  Expanded(
+                    child: PeopleList(people: filteredPeople, filter: filter),
+                  )
+                ],
+              );
+            } else {
+              return const Center(child: CircularProgressIndicator());
+            }
+          }),
     );
   }
 
@@ -105,33 +103,30 @@ class _PeopleListState extends State<PeopleList> {
         .where((element) => element != '')
         .toList();
 
-    return Padding(
-      padding: const EdgeInsets.only(top: 12),
-      child: ListView.builder(
-        shrinkWrap: true,
-        itemCount: widget.people.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            key: ValueKey(widget.people[index].name),
-            leading: CircleAvatar(
-              backgroundImage: NetworkImage(widget.people[index].photo),
-            ),
-            title: filteredWords.isNotEmpty
-                ? DynamicTextHighlighting(
-                    text: widget.people[index].name,
-                    style: Theme.of(context).textTheme.subtitle1,
-                    highlights: filteredWords,
-                    color: Theme.of(context).accentColor,
-                    caseSensitive: false,
-                  )
-                : Text(
-                    widget.people[index].name,
-                  ),
-            subtitle: Text(widget.people[index].email),
-            onTap: () => showPersonInfo(widget.people[index]),
-          );
-        },
-      ),
+    return ListView.builder(
+      shrinkWrap: true,
+      itemCount: widget.people.length,
+      itemBuilder: (context, index) {
+        return ListTile(
+          key: ValueKey(widget.people[index].name),
+          leading: CircleAvatar(
+            backgroundImage: NetworkImage(widget.people[index].photo),
+          ),
+          title: filteredWords.isNotEmpty
+              ? DynamicTextHighlighting(
+                  text: widget.people[index].name,
+                  style: Theme.of(context).textTheme.subtitle1,
+                  highlights: filteredWords,
+                  color: Theme.of(context).accentColor,
+                  caseSensitive: false,
+                )
+              : Text(
+                  widget.people[index].name,
+                ),
+          subtitle: Text(widget.people[index].email),
+          onTap: () => showPersonInfo(widget.people[index]),
+        );
+      },
     );
   }
 

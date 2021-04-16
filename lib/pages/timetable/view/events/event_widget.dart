@@ -62,7 +62,7 @@ class UniEventWidget extends StatelessWidget {
                   child: AutoSizeText(
                     event.mainEvent.type.toLocalizedString(context),
                     wrapWords: false,
-                    minFontSize: 8,
+                    minFontSize: 10,
                     maxFontSize: 10,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,

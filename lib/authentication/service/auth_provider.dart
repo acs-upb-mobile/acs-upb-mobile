@@ -19,14 +19,16 @@ extension DatabaseUser on User {
         firstName: data['name']['first'],
         lastName: data['name']['last'],
         classes: List.from(data['class'] ?? []),
-        permissionLevel: data['permissionLevel']);
+        permissionLevel: data['permissionLevel'],
+        sources: List.from(data['sources'] ?? []));
   }
 
   Map<String, dynamic> toData() {
     return {
       'name': {'first': firstName, 'last': lastName},
       'class': classes,
-      'permissionLevel': permissionLevel
+      'permissionLevel': permissionLevel,
+      'sources': sources
     };
   }
 }
@@ -175,7 +177,7 @@ class AuthProvider with ChangeNotifier {
   Future<bool> signInAnonymously({BuildContext context}) async {
     return FirebaseAuth.instance.signInAnonymously().catchError((dynamic e) {
       _errorHandler(e, context);
-      return false;
+      return FutureOr;
     }).then((_) => true);
   }
 
@@ -405,6 +407,23 @@ class AuthProvider with ChangeNotifier {
       AppToast.show(S.of(context).messageCheckEmailVerification);
     }
     return true;
+  }
+
+  Future<bool> setSourcePreferences(List<String> sources,
+      {BuildContext context}) async {
+    try {
+      _currentUser.sources = sources;
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(_currentUser.uid)
+          .update(_currentUser.toData());
+
+      notifyListeners();
+      return true;
+    } catch (e) {
+      _errorHandler(e, context);
+      return false;
+    }
   }
 
   /// Update the user information with the data in [info].

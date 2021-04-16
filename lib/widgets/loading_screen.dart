@@ -107,7 +107,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
                         child: Align(
                           alignment: Alignment.bottomCenter,
                           child: Padding(
-                            padding: const EdgeInsets.all(8),
+                            padding: const EdgeInsets.all(10),
                             child: CircularProgressIndicator(
                               valueColor: AlwaysStoppedAnimation<Color>(
                                   widget.loaderColor),
@@ -116,7 +116,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
                         ),
                       ),
                       widget.loadingText,
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 10),
                     ],
                   ),
                 ),

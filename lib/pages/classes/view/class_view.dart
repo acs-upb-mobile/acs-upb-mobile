@@ -16,6 +16,7 @@ import 'package:acs_upb_mobile/widgets/scaffold.dart';
 import 'package:acs_upb_mobile/widgets/toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:positioned_tap_detector/positioned_tap_detector.dart';
 import 'package:provider/provider.dart';
 
@@ -47,14 +48,14 @@ class _ClassViewState extends State<ClassView> {
               return ListView(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Column(
                       children: [
-                        const SizedBox(height: 8),
+                        const SizedBox(height: 10),
                         lecturerCard(context),
-                        const SizedBox(height: 8),
+                        const SizedBox(height: 10),
                         shortcuts(context),
-                        const SizedBox(height: 8),
+                        const SizedBox(height: 10),
                         GradingChart(
                           grading: classInfo.grading,
                           lastUpdated: classInfo.gradingLastUpdated,
@@ -78,7 +79,7 @@ class _ClassViewState extends State<ClassView> {
     final authProvider = Provider.of<AuthProvider>(context);
 
     return Padding(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(10),
       child: Column(
         children: [
               Row(
@@ -94,7 +95,7 @@ class _ClassViewState extends State<ClassView> {
                         : () => AppToast.show(
                             S.of(context).warningNoPermissionToEditClassInfo),
                     child: IconButton(
-                      icon: const Icon(Icons.add),
+                      icon: const Icon(Icons.add_outlined),
                       onPressed:
                           authProvider.currentUserFromCache.canEditClassInfo
                               ? () => Navigator.of(context).push(
@@ -122,7 +123,7 @@ class _ClassViewState extends State<ClassView> {
             (classInfo.shortcuts.isEmpty
                 ? <Widget>[
                     Padding(
-                      padding: const EdgeInsets.all(8),
+                      padding: const EdgeInsets.all(10),
                       child: Center(
                         child: Text(
                           S.of(context).labelUnknown,
@@ -145,20 +146,20 @@ class _ClassViewState extends State<ClassView> {
   IconData shortcutIcon(ShortcutType type) {
     switch (type) {
       case ShortcutType.main:
-        return Icons.home;
+        return Icons.home_outlined;
       case ShortcutType.classbook:
         return CustomIcons.book;
       case ShortcutType.resource:
-        return Icons.insert_drive_file;
+        return Icons.insert_drive_file_outlined;
       default:
-        return Icons.public;
+        return FeatherIcons.globe;
     }
   }
 
   AppDialog _deletionConfirmationDialog(
           {BuildContext context, String shortcutName, Function onDelete}) =>
       AppDialog(
-        icon: const Icon(Icons.delete),
+        icon: const Icon(Icons.delete_outlined),
         title: S.of(context).actionDeleteShortcut,
         message: S.of(context).messageDeleteShortcut(shortcutName),
         info: S.of(context).messageThisCouldAffectOtherStudents,
@@ -237,17 +238,17 @@ class _ClassViewState extends State<ClassView> {
     return Card(
       key: const Key('LecturerCard'),
       child: Padding(
-        padding: const EdgeInsets.all(8),
+        padding: const EdgeInsets.all(10),
         child: Row(
           children: [
             ClassIcon(classHeader: widget.classHeader),
-            const SizedBox(width: 8),
+            const SizedBox(width: 10),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   IconText(
-                    icon: Icons.class_,
+                    icon: FeatherIcons.bookOpen,
                     text: widget.classHeader.name ?? '-',
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
@@ -273,7 +274,7 @@ class _ClassViewState extends State<ClassView> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               IconText(
-                                icon: Icons.person,
+                                icon: Icons.person_outlined,
                                 text: lecturerName ?? '-',
                                 style: Theme.of(context).textTheme.bodyText1,
                               ),

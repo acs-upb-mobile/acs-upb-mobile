@@ -3,6 +3,7 @@ import 'package:acs_upb_mobile/generated/l10n.dart';
 import 'package:acs_upb_mobile/pages/classes/model/class.dart';
 import 'package:acs_upb_mobile/widgets/scaffold.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:validators/validators.dart';
 
@@ -59,7 +60,7 @@ class _ShortcutViewState extends State<ShortcutView> {
                 decoration: InputDecoration(
                   labelText: S.of(context).labelName,
                   hintText: S.of(context).hintWebsiteLabel,
-                  prefixIcon: const Icon(Icons.label),
+                  prefixIcon: const Icon(Icons.label_outlined),
                 ),
                 onChanged: (_) => setState(() {}),
               ),
@@ -67,7 +68,7 @@ class _ShortcutViewState extends State<ShortcutView> {
                 isExpanded: true,
                 decoration: InputDecoration(
                   labelText: S.of(context).labelType,
-                  prefixIcon: const Icon(Icons.category),
+                  prefixIcon: const Icon(Icons.category_outlined),
                 ),
                 value: selectedType,
                 items: ShortcutType.values
@@ -86,7 +87,7 @@ class _ShortcutViewState extends State<ShortcutView> {
                 decoration: InputDecoration(
                   labelText: '${S.of(context).labelLink} *',
                   hintText: S.of(context).hintWebsiteLink,
-                  prefixIcon: const Icon(Icons.public),
+                  prefixIcon: const Icon(FeatherIcons.globe),
                 ),
                 validator: (value) {
                   if (!isURL(value, requireProtocol: true)) {

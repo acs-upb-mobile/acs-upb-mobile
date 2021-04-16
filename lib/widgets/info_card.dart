@@ -18,10 +18,10 @@ class InfoCard<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
+      padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
       child: Card(
         child: Padding(
-          padding: const EdgeInsets.all(8),
+          padding: const EdgeInsets.all(10),
           child: Column(
             children: <Widget>[
               Row(
@@ -49,7 +49,7 @@ class InfoCard<T> extends StatelessWidget {
                                 .copyWith(color: Theme.of(context).accentColor),
                           ),
                           Icon(
-                            Icons.arrow_forward_ios,
+                            Icons.arrow_forward_ios_outlined,
                             color: Theme.of(context).accentColor,
                             size:
                                 Theme.of(context).textTheme.subtitle2.fontSize,
@@ -59,7 +59,7 @@ class InfoCard<T> extends StatelessWidget {
                     ),
                 ],
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 10),
               FutureBuilder(
                   future: future,
                   builder: (context, snapshot) {

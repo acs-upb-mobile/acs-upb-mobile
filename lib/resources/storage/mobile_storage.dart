@@ -1,8 +1,8 @@
 import 'dart:typed_data';
 
-import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:image_picker/image_picker.dart';
 
 class StorageProvider {
   static Future<String> findImageUrl(BuildContext context, String image) async {
@@ -22,7 +22,7 @@ class StorageProvider {
       bool result = false;
       final UploadTask uploadTask = reference.putData(file);
       await uploadTask.whenComplete(() => result = true).catchError(
-          (dynamic error) =>
+          (dynamic error) async =>
               print('Mobile_Storage - StorageUploadTask - uploadImage $error'));
       return result;
     } catch (e) {

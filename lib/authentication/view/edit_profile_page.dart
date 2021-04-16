@@ -149,7 +149,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   AppDialog _deletionConfirmationDialog(BuildContext context) {
     final passwordController = TextEditingController();
     return AppDialog(
-      icon: const Icon(Icons.warning, color: Colors.red),
+      icon: const Icon(Icons.warning_amber_outlined, color: Colors.red),
       title: S.of(context).actionDeleteAccount,
       message:
           '${S.of(context).messageDeleteAccount} ${S.of(context).messageCannotBeUndone}',
@@ -228,14 +228,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   Widget buildEditableAvatar(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(10),
       child: GestureDetector(
         child: CircleImage(
             circleSize: 150,
             image: imageWidget ??
                 const AssetImage('assets/illustrations/undraw_profile_pic.png'),
             enableOverlay: true,
-            overlayIcon: const Icon(Icons.edit)),
+            overlayIcon: const Icon(Icons.edit_outlined)),
         onTap: () async {
           final Uint8List uploadedImage =
               await StorageProvider.showImagePicker();
@@ -319,7 +319,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               }
             }),
         AppScaffoldAction(
-          icon: Icons.more_vert,
+          icon: Icons.more_vert_outlined,
           items: {
             S.of(context).actionChangePassword: () =>
                 showDialog(context: context, builder: _changePasswordDialog),
@@ -328,82 +328,81 @@ class _EditProfilePageState extends State<EditProfilePage> {
           },
         )
       ],
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: Container(
-          child: ListView(children: [
-            AccountNotVerifiedWarning(),
-            buildEditableAvatar(context),
-            PreferenceTitle(
-              S.of(context).labelPersonalInformation,
-              leftPadding: 0,
-            ),
-            Form(
-              key: formKey,
-              child: Column(
-                children: [
-                  TextFormField(
-                    decoration: InputDecoration(
-                      prefixIcon: const Icon(Icons.person),
-                      labelText: S.of(context).labelFirstName,
-                      hintText: S.of(context).hintFirstName,
-                    ),
-                    controller: firstNameController,
-                    validator: (value) {
-                      if (value?.isEmpty ?? true) {
-                        return S.of(context).errorMissingFirstName;
-                      }
-                      return null;
-                    },
+      body: Container(
+        child: ListView(padding: const EdgeInsets.all(10), children: [
+          AccountNotVerifiedWarning(),
+          buildEditableAvatar(context),
+          PreferenceTitle(
+            S.of(context).labelPersonalInformation,
+            leftPadding: 0,
+          ),
+          const SizedBox(height: 10),
+          Form(
+            key: formKey,
+            child: Column(
+              children: [
+                TextFormField(
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(Icons.person_outlined),
+                    labelText: S.of(context).labelFirstName,
+                    hintText: S.of(context).hintFirstName,
                   ),
+                  controller: firstNameController,
+                  validator: (value) {
+                    if (value?.isEmpty ?? true) {
+                      return S.of(context).errorMissingFirstName;
+                    }
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(Icons.person_outlined),
+                    labelText: S.of(context).labelLastName,
+                    hintText: S.of(context).hintLastName,
+                  ),
+                  controller: lastNameController,
+                  validator: (value) {
+                    if (value?.isEmpty ?? true) {
+                      return S.of(context).errorMissingLastName;
+                    }
+                    return null;
+                  },
+                ),
+                if (isVerified == false)
                   TextFormField(
                     decoration: InputDecoration(
-                      prefixIcon: const Icon(Icons.person),
-                      labelText: S.of(context).labelLastName,
-                      hintText: S.of(context).hintLastName,
+                      prefixIcon: const Icon(Icons.alternate_email_outlined),
+                      labelText: S.of(context).labelEmail,
+                      hintText: S.of(context).hintEmail,
+                      suffix: Text(emailDomain),
                     ),
-                    controller: lastNameController,
+                    controller: emailController,
                     validator: (value) {
                       if (value?.isEmpty ?? true) {
                         return S.of(context).errorMissingLastName;
                       }
                       return null;
                     },
-                  ),
-                  if (isVerified == false)
-                    TextFormField(
-                      decoration: InputDecoration(
-                        prefixIcon: const Icon(Icons.alternate_email),
-                        labelText: S.of(context).labelEmail,
-                        hintText: S.of(context).hintEmail,
-                        suffix: Text(emailDomain),
-                      ),
-                      controller: emailController,
-                      validator: (value) {
-                        if (value?.isEmpty ?? true) {
-                          return S.of(context).errorMissingLastName;
-                        }
-                        return null;
-                      },
-                    )
-                ],
-              ),
+                  )
+              ],
             ),
-            PreferenceTitle(
-              S.of(context).labelClass,
-              leftPadding: 0,
-            ),
-            FilterDropdown(
-              initialPath: path,
-              controller: dropdownController,
-              leftPadding: 10,
-              textStyle: Theme.of(context)
-                  .textTheme
-                  .caption
-                  .apply(color: Theme.of(context).hintColor),
-            ),
-          ]),
-        ),
+          ),
+          const SizedBox(height: 10),
+          PreferenceTitle(
+            S.of(context).labelClass,
+            leftPadding: 0,
+          ),
+          FilterDropdown(
+            initialPath: path,
+            controller: dropdownController,
+            leftPadding: 10,
+            textStyle: Theme.of(context)
+                .textTheme
+                .caption
+                .apply(color: Theme.of(context).hintColor),
+          ),
+        ]),
       ),
     );
   }
@@ -425,13 +424,13 @@ class AccountNotVerifiedWarning extends StatelessWidget {
           return Container();
         }
         return Padding(
-          padding: const EdgeInsets.only(top: 8),
+          padding: const EdgeInsets.only(top: 10),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               IconText(
                 align: TextAlign.center,
-                icon: Icons.error_outline,
+                icon: Icons.error_outlined,
                 text: S.of(context).messageEmailNotVerified,
                 actionText: S.of(context).actionSendVerificationAgain,
                 style: Theme.of(context)

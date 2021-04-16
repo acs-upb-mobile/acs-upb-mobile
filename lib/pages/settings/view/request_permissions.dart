@@ -113,8 +113,7 @@ class _RequestPermissionsPageState extends State<RequestPermissionsPage> {
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 20, 20, 8),
               child: Text(
-                S
-                    .of(context)
+                S.of(context)
                     .messageAskPermissionToEdit(Utils.packageInfo.appName),
                 style: Theme.of(context).textTheme.headline6,
               ),

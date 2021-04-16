@@ -30,7 +30,7 @@ class PersonView extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8),
+            padding: const EdgeInsets.all(10),
             child: Card(
               child: Padding(
                 padding: const EdgeInsets.all(16),
@@ -38,7 +38,7 @@ class PersonView extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 8, right: 16),
+                        padding: const EdgeInsets.only(left: 10, right: 16),
                         child: person.photo != null
                             ? CircleAvatar(
                                 maxRadius: 50,
@@ -48,7 +48,7 @@ class PersonView extends StatelessWidget {
                             : const CircleAvatar(
                                 radius: 50,
                                 child: Icon(
-                                  Icons.person,
+                                  Icons.person_outlined,
                                   size: 50,
                                 ),
                               ),
@@ -60,7 +60,7 @@ class PersonView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           IconText(
-                            icon: Icons.email,
+                            icon: Icons.email_outlined,
                             text: person.email ?? '-',
                             style: Theme.of(context).textTheme.bodyText1,
                             onTap: () => Utils.launchURL(
@@ -69,7 +69,7 @@ class PersonView extends StatelessWidget {
                           ),
                           const SizedBox(height: 16),
                           IconText(
-                            icon: Icons.phone,
+                            icon: Icons.phone_outlined,
                             text: person.phone ?? '-',
                             style: Theme.of(context).textTheme.bodyText1,
                             onTap: () => Utils.launchURL('tel:${person.phone}',
@@ -77,12 +77,12 @@ class PersonView extends StatelessWidget {
                           ),
                           const SizedBox(height: 16),
                           IconText(
-                              icon: Icons.location_on,
+                              icon: Icons.location_on_outlined,
                               text: person.office ?? '-',
                               style: Theme.of(context).textTheme.bodyText1),
                           const SizedBox(height: 16),
                           IconText(
-                              icon: Icons.work,
+                              icon: Icons.work_outline,
                               text: person.position ?? '-',
                               style: Theme.of(context).textTheme.bodyText1),
                         ],

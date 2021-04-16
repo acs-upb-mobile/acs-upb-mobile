@@ -8,6 +8,7 @@ import 'package:acs_upb_mobile/resources/custom_icons.dart';
 import 'package:acs_upb_mobile/widgets/selectable.dart';
 import 'package:acs_upb_mobile/widgets/toast.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
 
 class RelevanceController {
@@ -151,7 +152,7 @@ class _RelevancePickerState extends State<RelevancePicker> {
                   .copyWith(color: buttonColor),
             ),
             Icon(
-              Icons.arrow_forward_ios,
+              Icons.arrow_forward_ios_outlined,
               color: buttonColor,
               size: Theme.of(context).textTheme.subtitle2.fontSize,
             )
@@ -208,7 +209,7 @@ class _RelevancePickerState extends State<RelevancePicker> {
             }),
             disabled: !(_user?.canAddPublicInfo ?? false),
           ))
-          ..add(const SizedBox(width: 8));
+          ..add(const SizedBox(width: 10));
       }
     }
 
@@ -220,7 +221,7 @@ class _RelevancePickerState extends State<RelevancePicker> {
         _customControllers[node] = controller;
 
         widgets
-          ..add(const SizedBox(width: 8))
+          ..add(const SizedBox(width: 10))
           ..add(Selectable(
             label: node,
             controller: controller,
@@ -244,7 +245,7 @@ class _RelevancePickerState extends State<RelevancePicker> {
       padding: const EdgeInsets.only(top: 12, left: 12),
       child: Row(
         children: <Widget>[
-          Icon(CustomIcons.filter,
+          Icon(FeatherIcons.filter,
               color: CustomIcons.formIconColor(Theme.of(context))),
           const SizedBox(width: 12),
           Expanded(
@@ -268,7 +269,7 @@ class _RelevancePickerState extends State<RelevancePicker> {
                         _customRelevanceButton(),
                       ],
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 10),
                     Row(
                       children: <Widget>[
                         Expanded(
@@ -304,7 +305,7 @@ class _RelevancePickerState extends State<RelevancePicker> {
                                         }),
                                         controller: _onlyMeController,
                                       ),
-                                      const SizedBox(width: 8),
+                                      const SizedBox(width: 10),
                                     ],
                                   ),
                                 if (widget.canBeForEveryone)
@@ -341,7 +342,7 @@ class _RelevancePickerState extends State<RelevancePicker> {
                                         disabled:
                                             !(_user?.canAddPublicInfo ?? false),
                                       ),
-                                      const SizedBox(width: 8),
+                                      const SizedBox(width: 10),
                                     ],
                                   ),
                                 _customRelevanceSelectables(),

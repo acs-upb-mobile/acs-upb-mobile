@@ -1,12 +1,14 @@
 import 'dart:async';
+
 import 'package:acs_upb_mobile/authentication/model/user.dart';
+import 'package:acs_upb_mobile/authentication/service/auth_provider.dart';
 import 'package:acs_upb_mobile/generated/l10n.dart';
 import 'package:acs_upb_mobile/pages/filter/model/filter.dart';
-import 'package:acs_upb_mobile/authentication/service/auth_provider.dart';
 import 'package:acs_upb_mobile/pages/portal/model/website.dart';
 import 'package:acs_upb_mobile/resources/utils.dart';
 import 'package:acs_upb_mobile/widgets/toast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:preferences/preference_service.dart';
 import 'package:provider/provider.dart';
@@ -51,6 +53,7 @@ extension WebsiteExtension on Website {
   static Website fromSnap(DocumentSnapshot snap, {String ownerUid}) {
     final data = snap.data();
     return Website(
+      source: data['source'],
       ownerUid: ownerUid ?? data['addedBy'],
       id: snap.id,
       isPrivate: ownerUid != null,
@@ -87,6 +90,7 @@ extension WebsiteExtension on Website {
     }
     if (link != null) data['link'] = link;
     if (infoByLocale != null) data['info'] = infoByLocale;
+    data['source'] = source;
 
     return data;
   }
@@ -224,7 +228,10 @@ class WebsiteProvider with ChangeNotifier {
   }
 
   Future<List<Website>> fetchWebsites(Filter filter,
-      {bool userOnly = false, String uid, BuildContext context}) async {
+      {bool userOnly = false,
+      String uid,
+      BuildContext context,
+      List<String> sources}) async {
     try {
       final websites = <Website>[];
 
@@ -232,22 +239,36 @@ class WebsiteProvider with ChangeNotifier {
         List<DocumentSnapshot> documents = [];
 
         if (filter == null) {
-          final QuerySnapshot qSnapshot =
-              await _db.collection('websites').get();
+          final QuerySnapshot qSnapshot = sources != null
+              ? await _db
+                  .collection('websites')
+                  .where('source', whereIn: sources)
+                  .get()
+              : await _db.collection('websites').get();
           documents.addAll(qSnapshot.docs);
         } else {
           // Documents without a 'relevance' field are relevant for everyone
-          final query =
-              _db.collection('websites').where('relevance', isNull: true);
+          final query = sources != null
+              ? _db
+                  .collection('websites')
+                  .where('source', whereIn: sources)
+                  .where('relevance', isNull: true)
+              : _db.collection('websites').where('relevance', isNull: true);
           final QuerySnapshot qSnapshot = await query.get();
           documents.addAll(qSnapshot.docs);
 
           for (final string in filter.relevantNodes) {
             // selected nodes
-            final query = _db
-                .collection('websites')
-                .where('degree', isEqualTo: filter.baseNode)
-                .where('relevance', arrayContains: string);
+            final query = sources != null
+                ? _db
+                    .collection('websites')
+                    .where('degree', isEqualTo: filter.baseNode)
+                    .where('source', whereIn: sources)
+                    .where('relevance', arrayContains: string)
+                : _db
+                    .collection('websites')
+                    .where('degree', isEqualTo: filter.baseNode)
+                    .where('relevance', arrayContains: string);
             final QuerySnapshot qSnapshot = await query.get();
             documents.addAll(qSnapshot.docs);
           }
@@ -267,7 +288,13 @@ class WebsiteProvider with ChangeNotifier {
       if (uid != null) {
         final DocumentReference ref =
             FirebaseFirestore.instance.collection('users').doc(uid);
-        final QuerySnapshot qSnapshot = await ref.collection('websites').get();
+
+        final QuerySnapshot qSnapshot = sources != null
+            ? await ref
+                .collection('websites')
+                .where('source', whereIn: sources)
+                .get()
+            : await ref.collection('websites').get();
 
         websites.addAll(qSnapshot.docs
             .map((doc) => WebsiteExtension.fromSnap(doc, ownerUid: uid)));

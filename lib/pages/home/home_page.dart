@@ -18,12 +18,11 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
-
     return AppScaffold(
       title: Text(S.of(context).navigationHome),
       actions: [
         AppScaffoldAction(
-          icon: Icons.settings,
+          icon: Icons.settings_outlined,
           tooltip: S.of(context).navigationSettings,
           route: Routes.settings,
         )

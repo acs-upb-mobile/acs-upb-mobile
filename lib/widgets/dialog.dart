@@ -57,16 +57,16 @@ class AppDialog extends StatelessWidget {
                     Expanded(
                       child: Column(
                         children: [
-                          Container(height: 8),
+                          Container(height: 10),
                           Text(message),
                         ],
                       ),
                     ),
                   if (info != null)
                     Column(children: [
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 10),
                       IconText(
-                          icon: Icons.info,
+                          icon: Icons.info_outlined,
                           text: info,
                           style: Theme.of(context)
                               .textTheme
@@ -78,7 +78,7 @@ class AppDialog extends StatelessWidget {
           ),
         ),
         actions: <Widget>[
-              FlatButton(
+              TextButton(
                 key: const ValueKey('cancel_button'),
                 child: Text(
                   S.of(context).buttonCancel.toUpperCase(),

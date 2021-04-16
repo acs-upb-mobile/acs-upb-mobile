@@ -72,7 +72,7 @@ class _EventViewState extends State<EventView> {
       title: Text(S.of(context).navigationEventDetails),
       actions: [
         AppScaffoldAction(
-            icon: Icons.edit,
+            icon: Icons.edit_outlined,
             onPressed: () {
               final user = Provider.of<AuthProvider>(context, listen: false)
                   .currentUserFromCache;
@@ -145,8 +145,8 @@ class _EventViewState extends State<EventView> {
               child: Row(
                 children: <Widget>[
                   const Padding(
-                    padding: EdgeInsets.all(8),
-                    child: Icon(Icons.location_on),
+                    padding: EdgeInsets.all(10),
+                    child: Icon(Icons.location_on_outlined),
                   ),
                   const SizedBox(width: 16),
                   Text(widget.eventInstance.location,
@@ -160,8 +160,8 @@ class _EventViewState extends State<EventView> {
               child: Row(
                 children: <Widget>[
                   const Padding(
-                    padding: EdgeInsets.all(8),
-                    child: Icon(Icons.people),
+                    padding: EdgeInsets.all(10),
+                    child: Icon(Icons.people_outlined),
                   ),
                   const SizedBox(width: 16),
                   Text(
@@ -191,8 +191,8 @@ class _EventViewState extends State<EventView> {
                 child: Row(
                   children: <Widget>[
                     const Padding(
-                      padding: EdgeInsets.all(8),
-                      child: Icon(Icons.person),
+                      padding: EdgeInsets.all(10),
+                      child: Icon(Icons.person_outlined),
                     ),
                     const SizedBox(width: 16),
                     Text(

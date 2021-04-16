@@ -24,23 +24,24 @@ class FavouriteWebsitesCard extends StatelessWidget {
       onShowMore: onShowMore,
       future:
           websiteProvider.fetchFavouriteWebsites(uid: uid, context: context),
-      builder: (websites) => Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: websites
-            .map((website) => Expanded(
-                  child: Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: WebsiteIcon(
-                        website: website,
-                        onTap: () {
-                          websiteProvider.incrementNumberOfVisits(website,
-                              uid: uid);
-                          Utils.launchURL(website.link, context: context);
-                        },
-                      )),
-                ))
-            .toList(),
+      builder: (websites) => Padding(
+        padding: const EdgeInsets.only(top: 10),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: websites
+              .map((website) => Expanded(
+                    child: WebsiteIcon(
+                      website: website,
+                      onTap: () {
+                        websiteProvider.incrementNumberOfVisits(website,
+                            uid: uid);
+                        Utils.launchURL(website.link, context: context);
+                      },
+                    ),
+                  ))
+              .toList(),
+        ),
       ),
     );
   }

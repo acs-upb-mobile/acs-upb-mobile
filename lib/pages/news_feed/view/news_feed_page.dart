@@ -51,7 +51,7 @@ class _NewsFeedPageState extends State<NewsFeedPage> {
                 .map((item) => ListTile(
                       title: Text(item.title),
                       subtitle: Text(item.date),
-                      trailing: const Icon(Icons.arrow_forward_ios),
+                      trailing: const Icon(Icons.arrow_forward_ios_outlined),
                       onTap: () => Utils.launchURL(item.link, context: context),
                       dense: true,
                     ))

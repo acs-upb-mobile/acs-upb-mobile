@@ -13,7 +13,7 @@
   "labelConfirmPassword": "Confirmare parolă",
   "labelConfirmNewPassword": "Confirmare parolă nouă",
   "labelAskPermissions": "Cere permisiuni de editare",
-  "labelVersion": "Versiune",
+  "labelVersion": "Versiunea",
   "labelFirstName": "Prenume",
   "labelLastName": "Nume",
   "labelName": "Nume",
@@ -36,7 +36,7 @@
   "labelUnknown": "Necunoscut",
   "labelEvaluation": "Evaluare",
   "labelPoints": "Puncte",
-  "labelPrivacyPolicy": "Privacy Policy",
+  "labelPrivacyPolicy": "Politică de confidențialitate",
   "labelPersonalInformation": "Informații personale",
   "labelPermissionsConsent": "consimțământul pentru drepturi de editare",
   "labelLastUpdated": "Ultima modificare",
@@ -45,6 +45,7 @@
   "labelEven": "Pară",
   "labelOdd": "Impară",
   "labelDay": "Zi",
+  "labelAll": "Toate",
 
   "sectionShortcuts": "Scurtături",
   "sectionEvents": "Evenimente",
@@ -52,6 +53,7 @@
   "sectionEventsComingUp": "Evenimente următoare",
   "sectionFAQ": "Întrebări frecvente",
   "sectionGrading": "Punctaj",
+  "sectionInformationSources": "Surse de informații",
 
   "shortcutTypeMain": "Pagina principală",
   "shortcutTypeClassbook": "Catalog",
@@ -67,6 +69,7 @@
   "hintWebsiteLink": "http://google.com",
   "hintEvaluation": "Examen final",
   "hintPoints": "4.0",
+  "hintSelectSources": "Selectează sursele de informații pe care dorești să le folosești:",
 
   "actionSignUp": "Înregistrare",
   "actionLogIn": "Conectare",
@@ -168,6 +171,13 @@
   "filterMenuShowMine": "Arată doar pe ale mele",
   "filterMenuRelevance": "Filtrează după relevanță",
 
+  "sourceOfficial": "Site-uri oficiale",
+  "sourceOfficialWebPages": "acs.pub.ro, upb.ro, curs.upb.ro, studenti.pub.ro",
+  "sourceOrganization": "Organizații studențești",
+  "sourceStudentOrganizations": "LSAC, BEST, MLSA",
+  "sourceStudentRepresentative": "Studenți reprezentanți",
+  "sourceStudentExamples": "șefi de grupă, serie și studenții consilieri",
+
   "filterNodeNameBSc": "Licență",
   "filterNodeNameMSc": "Master",
 
@@ -177,10 +187,17 @@
   "settingsTitlePersonalization": "Personalizare",
   "settingsItemDarkMode": "Mod Întunecat",
   "settingsTitleLocalization": "Localizare",
+  "settingsTitleDataControl": "Control date",
+  "settingsItemEditingPermissions": "Permisiunile tale de editare",
+  "settingsPermissionsNone": "Fără permisiuni speciale",
+  "settingsPermissionsAdd": "Permisiune pentru adăugare de date publice",
+  "settingsPermissionsEdit": "Permisiune pentru editare de date publice",
+  "settingsPermissionsRequestSent": "Cerere pentru permisiuni trimisă",
   "settingsItemLanguage": "Limbă",
   "settingsItemLanguageEnglish": "Engleză",
   "settingsItemLanguageRomanian": "Română",
   "settingsItemLanguageAuto": "Auto",
+  "settingsTitleData": "Date",
   "settingsRelevanceFilter": "Filtru de relevanță",
 
   "websiteCategoryLearning": "Cursuri",
@@ -247,6 +264,7 @@
   "messageYouCanContribute": "Poți contribui la datele din aplicație, dar trebuie mai întâi să ceri permisiuni.",
   "messageThereAreNoEventsForSelected": "Nu există evenimente pentru selecția de ",
   "messagePictureUpdatedSuccess": "Poza a fost actualizată cu succes.",
+  "messageSelectSource": "Aplicația ACS UPB Mobile își propune să fie un hub de informații despre facultate, așadar culege date din diverse surse (oficiale sau neoficiale).",
 
   "infoPasswordResetEmailSent": "Please check your inbox for the password reset e-mail.",
   "infoRelevance": "Încercați să selectați cea mai restrictivă categorie.",
@@ -260,6 +278,9 @@
   "infoPassword": "Aceasta trebuie să conțină majuscule, minuscule și cel puțin un număr sau un simbol, având minimum 8 caractere.",
   "infoAppIsOpenSource": "{appName} este open source.",
   "infoEmail": "Acesta este același username pe care îl folosești să te loghezi pe {forum}.",
+  "infoLoading": "Se încarcă...",
+  "infoReadThePolicy": "Citește politica {appName}",
+  "infoAdditionInformationSources": "Facultatea de Automatică și Calculatoare nu își asumă răspunderea pentru informațiile provenite din surse neoficiale.",
 
   "stringEmailDomain": "@stud.acs.upb.ro",
   "stringForum": "cs.curs.pub.ro",

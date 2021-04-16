@@ -22,7 +22,7 @@ class NewsFeedCard extends StatelessWidget {
                   .map((item) => ListTile(
                         title: Text(item.title),
                         subtitle: Text(item.date),
-                        trailing: const Icon(Icons.arrow_forward_ios),
+                        trailing: const Icon(Icons.arrow_forward_ios_outlined),
                         contentPadding: EdgeInsets.zero,
                         dense: true,
                         onTap: () =>

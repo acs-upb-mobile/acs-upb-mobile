@@ -181,7 +181,7 @@ class _LoginViewState extends State<LoginView> {
             ),
             SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.only(left: 28, right: 28, bottom: 8),
+                padding: const EdgeInsets.only(left: 28, right: 28, bottom: 10),
                 child: IntrinsicHeight(
                   child: Column(
                     children: <Widget>[

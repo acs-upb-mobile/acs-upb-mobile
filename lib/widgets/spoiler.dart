@@ -88,7 +88,7 @@ class _AppSpoilerState extends State<AppSpoiler>
           children: [widget.content],
           leading: RotationTransition(
             turns: _iconTurns,
-            child: const Icon(Icons.expand_more),
+            child: const Icon(Icons.expand_more_outlined),
           ),
           trailing: Container(width: 0, height: 0),
           tilePadding: EdgeInsets.zero,

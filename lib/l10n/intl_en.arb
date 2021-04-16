@@ -45,6 +45,7 @@
   "labelEven": "Even",
   "labelOdd": "Odd",
   "labelDay": "Day",
+  "labelAll": "All",
 
   "sectionShortcuts": "Shortcuts",
   "sectionEvents": "Events",
@@ -52,6 +53,7 @@
   "sectionEventsComingUp": "Events coming up",
   "sectionFAQ": "FAQ",
   "sectionGrading": "Grading",
+  "sectionInformationSources": "Information sources",
 
   "shortcutTypeMain": "Main page",
   "shortcutTypeClassbook": "Classbook",
@@ -67,6 +69,7 @@
   "hintWebsiteLink": "http://google.com",
   "hintEvaluation": "Final exam",
   "hintPoints": "4.0",
+  "hintSelectSources": "Please select the sources that you want to see information from:",
 
   "actionSignUp": "Sign up",
   "actionLogIn": "Log in",
@@ -168,6 +171,13 @@
   "filterMenuShowMine": "Show only mine",
   "filterMenuRelevance": "Filter by relevance",
 
+  "sourceOfficial": "Official web pages",
+  "sourceOfficialWebPages": "acs.pub.ro, upb.ro, curs.upb.ro, studenti.pub.ro",
+  "sourceOrganization": "Student organizations",
+  "sourceStudentOrganizations": "LSAC, BEST, MLSA",
+  "sourceStudentRepresentative": "Representative students",
+  "sourceStudentExamples": "group/series representatives, student council members",
+
   "filterNodeNameBSc": "Bachelor's",
   "filterNodeNameMSc": "Master's",
 
@@ -177,10 +187,17 @@
   "settingsTitlePersonalization": "Personalization",
   "settingsItemDarkMode": "Dark Mode",
   "settingsTitleLocalization": "Localization",
+  "settingsTitleDataControl": "Data control",
+  "settingsItemEditingPermissions": "Your editing permissions",
+  "settingsPermissionsNone": "No special permissions",
+  "settingsPermissionsAdd": "Permission to add public info",
+  "settingsPermissionsEdit": "Permission to edit public info",
+  "settingsPermissionsRequestSent": "Permissions request already sent",
   "settingsItemLanguage": "Language",
   "settingsItemLanguageEnglish": "English",
   "settingsItemLanguageRomanian": "Romanian",
   "settingsItemLanguageAuto": "Auto",
+  "settingsTitleData": "Data",
   "settingsRelevanceFilter": "Relevance filter",
 
   "websiteCategoryLearning": "Learning",
@@ -247,6 +264,7 @@
   "messageYouCanContribute": "You can contribute to the app data, but you first need to request permissions.",
   "messageThereAreNoEventsForSelected": "There are no events for the selected ",
   "messagePictureUpdatedSuccess": "Profile picture updated successfully.",
+  "messageSelectSource": "ACS UPB Mobile aims to be an information hub for students, therefore it aggregates data from various sources (official or unofficial).",
 
   "infoPasswordResetEmailSent": "Please check your inbox for the password reset e-mail.",
   "infoRelevance": "Try to choose the most restrictive category.",
@@ -259,6 +277,9 @@
   "infoPassword": "It must contain lower and uppercase letters, one number and one special character, and have a minimum length of 8.",
   "infoAppIsOpenSource": "{appName} is open source.",
   "infoEmail": "This is the same username you use to log in to {forum}.",
+  "infoLoading": "Loading...",
+  "infoReadThePolicy": "Read the {appName} policy",
+  "infoAdditionInformationSources": "The Faculty of Automatic Control and Computers is not responsible for information originating from unofficial sources.",
 
   "stringEmailDomain": "@stud.acs.upb.ro",
   "stringForum": "cs.curs.pub.ro",

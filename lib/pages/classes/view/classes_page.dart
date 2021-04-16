@@ -61,7 +61,7 @@ class _ClassesPageState extends State<ClassesPage> {
       needsToBeAuthenticated: true,
       actions: [
         AppScaffoldAction(
-          icon: Icons.edit,
+          icon: Icons.edit_outlined,
           tooltip: S.of(context).actionChooseClasses,
           onPressed: () => Navigator.of(context).push(
             MaterialPageRoute<ChangeNotifierProvider>(
@@ -116,7 +116,7 @@ class _ClassesPageState extends State<ClassesPage> {
                         WidgetSpan(
                           alignment: PlaceholderAlignment.middle,
                           child: Icon(
-                            Icons.edit,
+                            Icons.edit_outlined,
                             size:
                                 Theme.of(context).textTheme.subtitle1.fontSize +
                                     2,
@@ -318,14 +318,14 @@ class _ClassListState extends State<ClassList> {
             Padding(
               padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
               child: IconText(
-                icon: Icons.info,
+                icon: Icons.info_outlined,
                 text:
                     '${S.of(context).infoSelect} ${S.of(context).infoClasses}.',
                 style: Theme.of(context).textTheme.bodyText1,
               ),
             ),
           Padding(
-            padding: const EdgeInsets.all(8),
+            padding: const EdgeInsets.all(10),
             child: Column(
                 children: widget.sectioned
                     ? (buildSections(

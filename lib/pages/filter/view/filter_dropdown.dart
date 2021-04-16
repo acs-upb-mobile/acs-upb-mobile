@@ -36,14 +36,14 @@ class _FilterDropdownState extends State<FilterDropdown> {
   List<FilterNode> nodes;
 
   List<Widget> _buildDropdowns(BuildContext context) {
-    final items = <Widget>[const SizedBox(height: 8)];
+    final items = <Widget>[const SizedBox(height: 10)];
     for (var i = 0; i < nodes.length; i++) {
       if (nodes[i] != null && nodes[i].children.isNotEmpty) {
         items.add(Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.only(top: 8, left: widget.leftPadding ?? 0.0),
+              padding: EdgeInsets.only(top: 10, left: widget.leftPadding ?? 0),
               child: Text(
                 filter.localizedLevelNames[i][LocaleProvider.localeString],
                 style: widget.textStyle ??
@@ -60,8 +60,8 @@ class _FilterDropdownState extends State<FilterDropdown> {
                   .map((node) => DropdownMenuItem(
                         value: node,
                         child: Padding(
-                          padding: EdgeInsets.only(
-                              top: 8, left: widget.leftPadding ?? 0.0),
+                          padding:
+                              EdgeInsets.only(left: widget.leftPadding ?? 0),
                           child: Text(node.localizedName(context)),
                         ),
                       ))

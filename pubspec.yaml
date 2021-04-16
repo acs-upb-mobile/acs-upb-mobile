@@ -63,6 +63,9 @@ dependencies:
   # Color picker widget
   flutter_colorpicker: ^0.3.4
 
+  # Allow using feather icons (nice outlined icons)
+  flutter_feather_icons: ^1.0.2
+
   # Package that allows for supporting multiple languages
   flutter_localizations:
     sdk: flutter

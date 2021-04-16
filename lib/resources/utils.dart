@@ -35,6 +35,10 @@ extension EnumUtils on Object {
 class Utils {
   Utils._();
 
+  static String privacyPolicyURL =
+      'https://www.websitepolicies.com/policies/view/IIUFv381';
+  static String repoURL = 'https://github.com/acs-upb-mobile/acs-upb-mobile';
+
   static Future<void> launchURL(String url, {BuildContext context}) async {
     if (await canLaunch(url)) {
       await launch(url);

@@ -68,7 +68,7 @@ class _FaqPageState extends State<FaqPage> {
       title: Text(S.of(context).sectionFAQ),
       actions: [
         AppScaffoldAction(
-          icon: Icons.search,
+          icon: Icons.search_outlined,
           onPressed: () {
             setState(() {
               searchClosed = !searchClosed;

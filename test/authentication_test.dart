@@ -602,10 +602,13 @@ void main() {
     });
 
     testWidgets('Sign out authenticated', (WidgetTester tester) async {
-      when(mockAuthProvider.currentUser).thenAnswer((_) =>
-          Future.value(User(uid: '0', firstName: 'John', lastName: 'Doe')));
-      when(mockAuthProvider.currentUserFromCache)
-          .thenReturn(User(uid: '0', firstName: 'John', lastName: 'Doe'));
+      when(mockAuthProvider.currentUser).thenAnswer((_) => Future.value(User(
+          uid: '0',
+          firstName: 'John',
+          lastName: 'Doe',
+          sources: ['official'])));
+      when(mockAuthProvider.currentUserFromCache).thenReturn(User(
+          uid: '0', firstName: 'John', lastName: 'Doe', sources: ['official']));
       when(mockAuthProvider.isAnonymous).thenReturn(false);
 
       await tester.pumpWidget(MultiProvider(providers: [

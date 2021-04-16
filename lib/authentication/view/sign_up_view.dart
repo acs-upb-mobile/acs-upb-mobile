@@ -121,7 +121,7 @@ class _SignUpViewState extends State<SignUpView> {
 
   Widget _privacyPolicy() {
     return Padding(
-      padding: const EdgeInsets.only(top: 8),
+      padding: const EdgeInsets.only(top: 10),
       child: Row(
         children: [
           Checkbox(
@@ -143,7 +143,7 @@ class _SignUpViewState extends State<SignUpView> {
                             .apply(fontWeightDelta: 2),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () => Utils.launchURL(
-                              'https://www.websitepolicies.com/policies/view/IIUFv381',
+                              Utils.privacyPolicyURL,
                               context: context)),
                     const TextSpan(text: '.'),
                   ]),
@@ -221,7 +221,7 @@ class _SignUpViewState extends State<SignUpView> {
             ),
             SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.only(left: 28, right: 28, bottom: 8),
+                padding: const EdgeInsets.only(left: 28, right: 28, bottom: 10),
                 child: IntrinsicHeight(
                   child: Column(
                     children: <Widget>[

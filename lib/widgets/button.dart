@@ -51,7 +51,7 @@ class _AppButtonState extends State<AppButton> {
               BoxShadow(
                 color: color.withOpacity(.1),
                 offset: const Offset(0, 8),
-                blurRadius: 8,
+                blurRadius: 10,
               )
             ]),
         child: InkWell(

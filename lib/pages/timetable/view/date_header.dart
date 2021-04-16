@@ -60,7 +60,7 @@ class WeekdayIndicator extends StatelessWidget {
     return DecoratedBox(
       decoration: decoration,
       child: Padding(
-        padding: const EdgeInsets.all(8),
+        padding: const EdgeInsets.all(4),
         child: AutoSizeText(
           pattern.format(date),
           style: textStyle,

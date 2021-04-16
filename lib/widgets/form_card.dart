@@ -124,7 +124,7 @@ class _FormCardState extends State<FormCard> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
+                    padding: const EdgeInsets.only(bottom: 10),
                     child: Text(widget.title,
                         style: Theme.of(context)
                             .textTheme

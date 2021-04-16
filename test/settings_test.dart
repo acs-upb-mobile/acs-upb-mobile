@@ -39,6 +39,16 @@ void main() {
   RequestProvider mockRequestProvider;
   MockNewsProvider mockNewsProvider;
 
+  Widget buildApp() => MultiProvider(providers: [
+        ChangeNotifierProvider<AuthProvider>(create: (_) => mockAuthProvider),
+        ChangeNotifierProvider<WebsiteProvider>(
+            create: (_) => mockWebsiteProvider),
+        ChangeNotifierProvider<QuestionProvider>(
+            create: (_) => mockQuestionProvider),
+        Provider<RequestProvider>(create: (_) => mockRequestProvider),
+        ChangeNotifierProvider<NewsProvider>(create: (_) => mockNewsProvider),
+      ], child: const MyApp());
+
   group('Settings', () {
     setUpAll(() async {
       WidgetsFlutterBinding.ensureInitialized();
@@ -100,21 +110,14 @@ void main() {
     });
 
     testWidgets('Dark Mode', (WidgetTester tester) async {
-      await tester.pumpWidget(MultiProvider(providers: [
-        ChangeNotifierProvider<AuthProvider>(create: (_) => mockAuthProvider),
-        ChangeNotifierProvider<WebsiteProvider>(
-            create: (_) => mockWebsiteProvider),
-        ChangeNotifierProvider<QuestionProvider>(
-            create: (_) => mockQuestionProvider),
-        ChangeNotifierProvider<NewsProvider>(create: (_) => mockNewsProvider),
-      ], child: const MyApp()));
+      await tester.pumpWidget(buildApp());
       await tester.pumpAndSettle();
 
       MaterialApp app = find.byType(MaterialApp).evaluate().first.widget;
       expect(app.theme.brightness, equals(Brightness.light));
 
       // Open settings
-      await tester.tap(find.byIcon(Icons.settings));
+      await tester.tap(find.byIcon(Icons.settings_outlined));
       await tester.pumpAndSettle();
 
       // Toggle dark mode
@@ -133,18 +136,11 @@ void main() {
     });
 
     testWidgets('Language', (WidgetTester tester) async {
-      await tester.pumpWidget(MultiProvider(providers: [
-        ChangeNotifierProvider<AuthProvider>(create: (_) => mockAuthProvider),
-        ChangeNotifierProvider<WebsiteProvider>(
-            create: (_) => mockWebsiteProvider),
-        ChangeNotifierProvider<QuestionProvider>(
-            create: (_) => mockQuestionProvider),
-        ChangeNotifierProvider<NewsProvider>(create: (_) => mockNewsProvider),
-      ], child: const MyApp()));
+      await tester.pumpWidget(buildApp());
       await tester.pumpAndSettle();
 
       // Open settings
-      await tester.tap(find.byIcon(Icons.settings));
+      await tester.tap(find.byIcon(Icons.settings_outlined));
       await tester.pumpAndSettle();
 
       expect(find.text('Auto'), findsOneWidget);
@@ -189,23 +185,15 @@ void main() {
       testWidgets('Normal scenario', (WidgetTester tester) async {
         when(mockAuthProvider.isVerified).thenAnswer((_) => Future.value(true));
 
-        await tester.pumpWidget(MultiProvider(providers: [
-          ChangeNotifierProvider<AuthProvider>(create: (_) => mockAuthProvider),
-          ChangeNotifierProvider<WebsiteProvider>(
-              create: (_) => mockWebsiteProvider),
-          ChangeNotifierProvider<QuestionProvider>(
-              create: (_) => mockQuestionProvider),
-          Provider<RequestProvider>(create: (_) => mockRequestProvider),
-          ChangeNotifierProvider<NewsProvider>(create: (_) => mockNewsProvider),
-        ], child: const MyApp()));
+        await tester.pumpWidget(buildApp());
         await tester.pumpAndSettle();
 
         // Open settings
-        await tester.tap(find.byIcon(Icons.settings));
+        await tester.tap(find.byIcon(Icons.settings_outlined));
         await tester.pumpAndSettle();
 
         // Open Ask Permissions page
-        expect(find.text('Request editing permissions'), findsOneWidget);
+        expect(find.text('No special permissions'), findsOneWidget);
         await tester.tap(find.byKey(const ValueKey('ask_permissions')));
         await tester.pumpAndSettle();
         expect(find.byType(RequestPermissionsPage), findsOneWidget);
@@ -230,23 +218,15 @@ void main() {
                 context: anyNamed('context')))
             .thenAnswer((_) => Future.value(true));
 
-        await tester.pumpWidget(MultiProvider(providers: [
-          ChangeNotifierProvider<AuthProvider>(create: (_) => mockAuthProvider),
-          ChangeNotifierProvider<WebsiteProvider>(
-              create: (_) => mockWebsiteProvider),
-          ChangeNotifierProvider<QuestionProvider>(
-              create: (_) => mockQuestionProvider),
-          Provider<RequestProvider>(create: (_) => mockRequestProvider),
-          ChangeNotifierProvider<NewsProvider>(create: (_) => mockNewsProvider),
-        ], child: const MyApp()));
+        await tester.pumpWidget(buildApp());
         await tester.pumpAndSettle();
 
         // Open settings
-        await tester.tap(find.byIcon(Icons.settings));
+        await tester.tap(find.byIcon(Icons.settings_outlined));
         await tester.pumpAndSettle();
 
         // Open Ask Permissions page
-        expect(find.text('Request editing permissions'), findsOneWidget);
+        expect(find.text('Permissions request already sent'), findsOneWidget);
         await tester.tap(find.byKey(const ValueKey('ask_permissions')));
         await tester.pumpAndSettle();
         expect(find.byType(RequestPermissionsPage), findsOneWidget);
@@ -274,25 +254,17 @@ void main() {
         when(mockAuthProvider.isAnonymous).thenReturn(true);
         when(mockRequestProvider.userAlreadyRequested(any,
                 context: anyNamed('context')))
-            .thenAnswer((_) => Future.value(true));
+            .thenAnswer((_) => Future.value(false));
 
-        await tester.pumpWidget(MultiProvider(providers: [
-          ChangeNotifierProvider<AuthProvider>(create: (_) => mockAuthProvider),
-          ChangeNotifierProvider<WebsiteProvider>(
-              create: (_) => mockWebsiteProvider),
-          ChangeNotifierProvider<QuestionProvider>(
-              create: (_) => mockQuestionProvider),
-          Provider<RequestProvider>(create: (_) => mockRequestProvider),
-          ChangeNotifierProvider<NewsProvider>(create: (_) => mockNewsProvider),
-        ], child: const MyApp()));
+        await tester.pumpWidget(buildApp());
         await tester.pumpAndSettle();
 
         // Open settings
-        await tester.tap(find.byIcon(Icons.settings));
+        await tester.tap(find.byIcon(Icons.settings_outlined));
         await tester.pumpAndSettle();
 
         // Press Ask Permissions page
-        expect(find.text('Request editing permissions'), findsOneWidget);
+        expect(find.text('No special permissions'), findsOneWidget);
         await tester.tap(find.byKey(const ValueKey('ask_permissions')));
         await tester.pumpAndSettle(const Duration(seconds: 2));
 
@@ -306,25 +278,17 @@ void main() {
         when(mockAuthProvider.isAnonymous).thenReturn(false);
         when(mockRequestProvider.userAlreadyRequested(any,
                 context: anyNamed('context')))
-            .thenAnswer((_) => Future.value(true));
+            .thenAnswer((_) => Future.value(false));
 
-        await tester.pumpWidget(MultiProvider(providers: [
-          ChangeNotifierProvider<AuthProvider>(create: (_) => mockAuthProvider),
-          ChangeNotifierProvider<WebsiteProvider>(
-              create: (_) => mockWebsiteProvider),
-          ChangeNotifierProvider<QuestionProvider>(
-              create: (_) => mockQuestionProvider),
-          Provider<RequestProvider>(create: (_) => mockRequestProvider),
-          ChangeNotifierProvider<NewsProvider>(create: (_) => mockNewsProvider),
-        ], child: const MyApp()));
+        await tester.pumpWidget(buildApp());
         await tester.pumpAndSettle();
 
         // Open settings
-        await tester.tap(find.byIcon(Icons.settings));
+        await tester.tap(find.byIcon(Icons.settings_outlined));
         await tester.pumpAndSettle();
 
         // Press Ask Permissions page
-        expect(find.text('Request editing permissions'), findsOneWidget);
+        expect(find.text('No special permissions'), findsOneWidget);
         await tester.tap(find.byKey(const ValueKey('ask_permissions')));
 
         // Verify Ask Permissions page is not opened
@@ -338,11 +302,11 @@ void main() {
         // Go back and open settings again
         await tester.tap(find.byIcon(Icons.arrow_back));
         await tester.pumpAndSettle();
-        await tester.tap(find.byIcon(Icons.settings));
+        await tester.tap(find.byIcon(Icons.settings_outlined));
         await tester.pumpAndSettle();
 
         // Press Ask Permissions page
-        expect(find.text('Request editing permissions'), findsOneWidget);
+        expect(find.text('No special permissions'), findsOneWidget);
         await tester.tap(find.byKey(const ValueKey('ask_permissions')));
 
         // Verify Ask Permissions page is opened

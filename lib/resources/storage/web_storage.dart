@@ -1,9 +1,9 @@
 import 'dart:typed_data';
 
-import 'package:flutter/material.dart';
-import 'package:image_picker_web/image_picker_web.dart';
 import 'package:firebase/firebase.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:image_picker_web/image_picker_web.dart';
 
 class StorageProvider {
   static Future<String> findImageUrl(BuildContext context, String image) async {
@@ -25,7 +25,7 @@ class StorageProvider {
           .put(file)
           .future
           .whenComplete(() => result = true)
-          .catchError((dynamic error) =>
+          .catchError((dynamic error) async =>
               print('Web_Storage - StorageUploadTask - uploadImage $error'));
       return result;
     } catch (e) {

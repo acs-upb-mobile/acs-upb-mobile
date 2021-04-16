@@ -111,7 +111,7 @@ class CircleImage extends StatelessWidget {
                     child: Center(
                       child: overlayIcon ??
                           Icon(
-                            Icons.edit,
+                            Icons.edit_outlined,
                             color: Colors.grey[700],
                           ),
                     ),

@@ -66,7 +66,7 @@ class IconText extends StatelessWidget {
                         ),
                       if (actionArrow)
                         Icon(
-                          Icons.arrow_forward_ios,
+                          Icons.arrow_forward_ios_outlined,
                           color: actionStyle.color,
                           size: actionStyle.fontSize,
                         ),
