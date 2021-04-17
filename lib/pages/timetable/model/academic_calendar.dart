@@ -8,12 +8,14 @@ class AcademicCalendar {
       {@required this.id,
       this.semesters = const [],
       this.holidays = const [],
-      this.exams = const []});
+      this.exams = const [],
+      this.assignments = const []});
 
   String id;
   List<AllDayUniEvent> semesters;
   List<AllDayUniEvent> holidays;
   List<AllDayUniEvent> exams;
+  List<AllDayUniEvent> assignments;
 
   Map<int, Set<int>> _getWeeksByYearInInterval(DateInterval interval) {
     final Map<int, Set<int>> weeksByYear = {};

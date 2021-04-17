@@ -1544,6 +1544,16 @@ class S {
     );
   }
 
+  /// `People`
+  String get navigationPlanner {
+    return Intl.message(
+      'Planner',
+      name: 'navigationPlanner',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Settings`
   String get navigationSettings {
     return Intl.message(
@@ -1579,6 +1589,16 @@ class S {
     return Intl.message(
       'Event details',
       name: 'navigationEventDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Event details`
+  String get navigationAssignmentDetails {
+    return Intl.message(
+      'Assignment details',
+      name: 'navigationAssignmentDetails',
       desc: '',
       args: [],
     );

@@ -1,6 +1,7 @@
 import 'package:acs_upb_mobile/generated/l10n.dart';
 import 'package:acs_upb_mobile/pages/home/home_page.dart';
 import 'package:acs_upb_mobile/pages/people/view/people_page.dart';
+import 'package:acs_upb_mobile/pages/planner/view/planner_page.dart';
 import 'package:acs_upb_mobile/pages/portal/view/portal_page.dart';
 import 'package:acs_upb_mobile/pages/timetable/view/timetable_page.dart';
 import 'package:flutter/material.dart';
@@ -23,12 +24,13 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar>
   @override
   void initState() {
     super.initState();
-    tabController = TabController(vsync: this, length: 4);
+    tabController = TabController(vsync: this, length: 5);
     tabs = [
       HomePage(key: const PageStorageKey('Home'), tabController: tabController),
       const TimetablePage(), // Cannot preserve state with PageStorageKey
       const PortalPage(key: PageStorageKey('Portal')),
       const PeoplePage(key: PageStorageKey('People')),
+      const PlannerPage(key: PageStorageKey('Planner')),
     ];
   }
 
@@ -72,6 +74,11 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar>
                 Tab(
                   icon: const Icon(Icons.people),
                   text: S.of(context).navigationPeople,
+                  iconMargin: EdgeInsets.zero,
+                ),
+                Tab(
+                  icon: const Icon(Icons.analytics_rounded),
+                  text: S.of(context).navigationPlanner,
                   iconMargin: EdgeInsets.zero,
                 ),
               ],

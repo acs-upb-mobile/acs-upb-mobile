@@ -44,7 +44,8 @@ extension UniEventTypeExtension on UniEventType {
         UniEventType.lecture,
         UniEventType.lab,
         UniEventType.seminar,
-        UniEventType.sports
+        UniEventType.sports,
+        UniEventType.examSession
       ];
 
   static UniEventType fromString(String string) {
