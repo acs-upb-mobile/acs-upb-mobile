@@ -48,6 +48,8 @@
   "labelToday": "Astăzi",
   "labelTomorrow": "Mâine",
   "labelNow": "Acum",
+  "labelPeople": "Persoane",
+  "labelClasses": "Materii",
 
   "sectionShortcuts": "Scurtături",
   "sectionEvents": "Evenimente",
@@ -168,6 +170,8 @@
   "navigationEventDetails": "Detalii eveniment",
   "navigationNewsFeed": "Știri",
   "navigationClassInfo": "Informații materie",
+  "navigationSearch": "Căutare",
+  "navigationSearchResults": "Materii găsite",
 
   "filterMenuShowAll": "Arată tot",
   "filterMenuShowMine": "Arată doar pe ale mele",
@@ -260,6 +264,8 @@
   "messageYouCanContribute": "Poți contribui la datele din aplicație, dar trebuie mai întâi să ceri permisiuni.",
   "messageThereAreNoEventsForSelected": "Nu există evenimente pentru selecția de ",
   "messagePictureUpdatedSuccess": "Poza a fost actualizată cu succes.",
+  "messageAnotherQuestion": "Ai altă întrebare?",
+  "messageTalkToChatbot": "Vorbește cu Polly!",
 
   "infoPasswordResetEmailSent": "Please check your inbox for the password reset e-mail.",
   "infoRelevance": "Încercați să selectați cea mai restrictivă categorie.",

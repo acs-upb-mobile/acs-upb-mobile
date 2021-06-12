@@ -48,6 +48,8 @@
   "labelToday": "Today",
   "labelTomorrow": "Tomorrow",
   "labelNow": "Now",
+  "labelPeople": "People",
+  "labelClasses": "Classes",
 
   "sectionShortcuts": "Shortcuts",
   "sectionEvents": "Events",
@@ -168,6 +170,8 @@
   "navigationEventDetails": "Event details",
   "navigationNewsFeed": "News feed",
   "navigationClassInfo": "Class information",
+  "navigationSearch": "Search",
+  "navigationSearchResults": "Classes found",
 
   "filterMenuShowAll": "Show all",
   "filterMenuShowMine": "Show only mine",
@@ -260,6 +264,8 @@
   "messageYouCanContribute": "You can contribute to the app data, but you first need to request permissions.",
   "messageThereAreNoEventsForSelected": "There are no events for the selected ",
   "messagePictureUpdatedSuccess": "Profile picture updated successfully.",
+  "messageAnotherQuestion": "Do you have another question?",
+  "messageTalkToChatbot": "Talk to Polly!",
 
   "infoPasswordResetEmailSent": "Please check your inbox for the password reset e-mail.",
   "infoRelevance": "Try to choose the most restrictive category.",

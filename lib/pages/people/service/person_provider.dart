@@ -1,3 +1,4 @@
+import 'dart:core';
 import 'package:acs_upb_mobile/generated/l10n.dart';
 import 'package:acs_upb_mobile/pages/people/model/person.dart';
 import 'package:acs_upb_mobile/widgets/toast.dart';
@@ -72,5 +73,41 @@ class PersonProvider with ChangeNotifier {
       AppToast.show(S.current.errorSomethingWentWrong);
       return null;
     }
+  }
+
+  Future<List<Person>> search(String query) async {
+    if (query.isEmpty) {
+      return <Person>[];
+    }
+//    final QuerySnapshot peopleData = await FirebaseFirestore.instance.collection('people')
+//        .where('name', isEqualTo: query)
+//        .limit(10)
+//        .get();
+    final List<Person> people = await fetchPeople();
+//    List<Person> peopleSearched = <Person>[];
+    final List<String> searchedWords = query
+        .toLowerCase()
+        .split(' ')
+        .where((element) => element != '')
+        .toList();
+//    for(int i = 0; i < people.length; i++){
+////      for(int j = 0; j < searchedWords.length; j++){
+////        if(people[i].name.toLowerCase().contains(searchedWords[j])){
+////          peopleSearched.add(people[i]);
+////        }
+////      }
+//        if(people[i].name.toLowerCase().contains(query.toLowerCase())){
+//          peopleSearched.add(people[i]);
+//        }
+//    }
+    //return people.where((element) => element.name.toLowerCase().contains(query.toLowerCase())).toList() ?? <Person>[];
+    return people
+            .where((person) => searchedWords.fold(
+                true,
+                (previousValue, filter) =>
+                    previousValue &&
+                    person.name.toLowerCase().contains(filter.toLowerCase())))
+            .toList() ??
+        <Person>[];
   }
 }
