@@ -14,6 +14,7 @@ import 'package:acs_upb_mobile/pages/filter/view/filter_page.dart';
 import 'package:acs_upb_mobile/pages/news_feed/service/news_provider.dart';
 import 'package:acs_upb_mobile/pages/news_feed/view/news_feed_page.dart';
 import 'package:acs_upb_mobile/pages/people/service/person_provider.dart';
+import 'package:acs_upb_mobile/pages/planner/service/planner_provider.dart';
 import 'package:acs_upb_mobile/pages/portal/service/website_provider.dart';
 import 'package:acs_upb_mobile/pages/settings/service/request_provider.dart';
 import 'package:acs_upb_mobile/pages/settings/view/request_permissions.dart';
@@ -75,22 +76,25 @@ Future<void> main() async {
     ChangeNotifierProvider<PersonProvider>(create: (_) => personProvider),
     ChangeNotifierProvider<QuestionProvider>(create: (_) => QuestionProvider()),
     ChangeNotifierProvider<NewsProvider>(create: (_) => NewsProvider()),
+    ChangeNotifierProvider<PlannerProvider>(create: (_) => PlannerProvider()),
     ChangeNotifierProxyProvider<AuthProvider, FilterProvider>(
       create: (_) => FilterProvider(global: true),
       update: (context, authProvider, filterProvider) {
         return filterProvider..updateAuth(authProvider);
       },
     ),
-    ChangeNotifierProxyProvider2<ClassProvider, FilterProvider,
+    ChangeNotifierProxyProvider3<ClassProvider, FilterProvider, PlannerProvider,
         UniEventProvider>(
       create: (_) => UniEventProvider(
         authProvider: authProvider,
         personProvider: personProvider,
       ),
-      update: (context, classProvider, filterProvider, uniEventProvider) {
+      update: (context, classProvider, filterProvider, plannerProvider,
+          uniEventProvider) {
         return uniEventProvider
           ..updateClasses(classProvider)
-          ..updateFilter(filterProvider);
+          ..updateFilter(filterProvider)
+          ..updateHiddenEvents(plannerProvider);
       },
     ),
   ], child: const MyApp()));

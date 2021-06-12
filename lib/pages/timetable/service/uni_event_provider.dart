@@ -8,10 +8,12 @@ import 'package:acs_upb_mobile/pages/filter/model/filter.dart';
 import 'package:acs_upb_mobile/pages/filter/service/filter_provider.dart';
 import 'package:acs_upb_mobile/pages/people/model/person.dart';
 import 'package:acs_upb_mobile/pages/people/service/person_provider.dart';
+import 'package:acs_upb_mobile/pages/planner/service/planner_provider.dart';
 import 'package:acs_upb_mobile/pages/timetable/model/academic_calendar.dart';
 import 'package:acs_upb_mobile/pages/timetable/model/events/all_day_event.dart';
 import 'package:acs_upb_mobile/pages/timetable/model/events/class_event.dart';
 import 'package:acs_upb_mobile/pages/timetable/model/events/recurring_event.dart';
+import 'package:acs_upb_mobile/pages/timetable/model/events/task_event.dart';
 import 'package:acs_upb_mobile/pages/timetable/model/events/uni_event.dart';
 import 'package:acs_upb_mobile/resources/utils.dart';
 import 'package:acs_upb_mobile/widgets/toast.dart';
@@ -72,7 +74,32 @@ extension UniEventExtension on UniEvent {
 
     final type = UniEventTypeExtension.fromString(json['type']);
 
-    if (json['end'] != null) {
+    if (json['hardDeadline'] != null) {
+      return TaskEvent(
+        id: id,
+        type: type,
+        name: json['name'],
+        // Convert time to UTC and then to local time
+        start: (json['start'] as Timestamp).toLocalDateTime().calendarDate,
+        hardDeadline:
+            (json['hardDeadline'] as Timestamp).toLocalDateTime().calendarDate,
+        softDeadline: json['softDeadline'] != null
+            ? (json['softDeadline'] as Timestamp).toLocalDateTime().calendarDate
+            : null,
+        location: json['location'],
+        // TODO(IoanaAlexandru): Allow users to set event colours in settings
+        color: type.color,
+        classHeader: classHeader,
+        calendar: calendars[json['calendar']],
+        degree: json['degree'],
+        relevance: json['relevance'] == null
+            ? null
+            : List<String>.from(json['relevance']),
+        addedBy: json['addedBy'],
+        grade: json['grade'],
+        penalties: json['penalties'],
+      );
+    } else if (json['end'] != null) {
       return AllDayUniEvent(
         id: id,
         type: type,
@@ -177,8 +204,16 @@ extension UniEventExtension on UniEvent {
       json['rrule'] = (this as RecurringUniEvent).rrule.toString();
     }
 
-    if (this is AllDayUniEvent) {
+    if (this is TaskEvent) {
+      json['hardDeadline'] =
+          (this as TaskEvent).hardDeadline.atMidnight().toTimestamp();
+      json['softDeadline'] =
+          (this as TaskEvent).softDeadline.atMidnight().toTimestamp();
+      json['grade'] = (this as TaskEvent).grade;
+      json['penalties'] = (this as TaskEvent).penalties;
+    } else if (this is AllDayUniEvent) {
       json['end'] = (this as AllDayUniEvent).endDate.atMidnight().toTimestamp();
+      json['editable'] = editable;
     }
 
     if (this is ClassEvent) {
@@ -211,9 +246,13 @@ extension AcademicCalendarExtension on AcademicCalendar {
 
 class UniEventProvider extends EventProvider<UniEventInstance>
     with ChangeNotifier {
-  UniEventProvider({AuthProvider authProvider, PersonProvider personProvider})
+  UniEventProvider(
+      {AuthProvider authProvider,
+      PersonProvider personProvider,
+      PlannerProvider plannerProvider})
       : _authProvider = authProvider ?? AuthProvider(),
-        _personProvider = personProvider ?? PersonProvider() {
+        _personProvider = personProvider ?? PersonProvider(),
+        _plannerProvider = plannerProvider ?? PlannerProvider() {
     fetchCalendars();
   }
 
@@ -222,7 +261,9 @@ class UniEventProvider extends EventProvider<UniEventInstance>
   FilterProvider _filterProvider;
   final AuthProvider _authProvider;
   final PersonProvider _personProvider;
+  PlannerProvider _plannerProvider;
   List<String> _classIds = [];
+  List<String> _hiddenEvents = [];
   Filter _filter;
   bool empty;
 
@@ -319,8 +360,11 @@ class UniEventProvider extends EventProvider<UniEventInstance>
   Stream<Iterable<UniEventInstance>> getAllDayEventsIntersecting(
       DateInterval interval) {
     return _events.map((events) => events
-        .map((event) => event.generateInstances(intersectingInterval: interval))
+        .map((event) => event.generateInstances(
+            intersectingInterval: interval,
+            hidden: _hiddenEvents.contains(event.id)))
         .expand((i) => i)
+        .where((event) => event.hidden == false)
         .allDayEvents
         .followedBy(_calendars.values.map((cal) {
           final List<AllDayUniEvent> events = cal.holidays + cal.exams;
@@ -360,6 +404,23 @@ class UniEventProvider extends EventProvider<UniEventInstance>
         .first;
   }
 
+  Future<Iterable<UniEventInstance>> getAssignments(
+      {int limit = 3, bool retrievePast = false}) async {
+    return _events
+        .map((events) => events
+            .where((event) => (event is AllDayUniEvent) == true)
+            .map((event) => (event as TaskEvent)
+                .generateInstances(hidden: _hiddenEvents.contains(event.id)))
+            .expand((i) => i)
+            .sortedByStartLength()
+            .where((element) => retrievePast == false
+                ? element.end.toDateTimeLocal().isAfter(DateTime.now()) &&
+                    element.hidden == false
+                : element != null)
+            .take(limit))
+        .first;
+  }
+
   Future<Iterable<UniEvent>> getAllEventsOfClass(String classId) async {
     return _events
         .map((events) =>
@@ -379,6 +440,16 @@ class UniEventProvider extends EventProvider<UniEventInstance>
     _filterProvider = filterProvider;
     _filterProvider.fetchFilter().then((filter) {
       _filter = filter;
+      notifyListeners();
+    });
+  }
+
+  void updateHiddenEvents(PlannerProvider plannerProvider) {
+    _plannerProvider = plannerProvider;
+    _plannerProvider
+        .fetchUserHiddenEvents(_authProvider.uid)
+        .then((hiddenEvents) {
+      _hiddenEvents = hiddenEvents;
       notifyListeners();
     });
   }

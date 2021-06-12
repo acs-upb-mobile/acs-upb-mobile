@@ -19,6 +19,7 @@ extension DatabaseUser on User {
         firstName: data['name']['first'],
         lastName: data['name']['last'],
         classes: List.from(data['class'] ?? []),
+        hiddenEvents: List.from(data['hiddenEvents'] ?? []),
         permissionLevel: data['permissionLevel']);
   }
 

@@ -6,7 +6,9 @@ import 'package:acs_upb_mobile/pages/classes/view/classes_page.dart';
 import 'package:acs_upb_mobile/pages/filter/model/filter.dart';
 import 'package:acs_upb_mobile/pages/filter/service/filter_provider.dart';
 import 'package:acs_upb_mobile/pages/people/view/person_view.dart';
+import 'package:acs_upb_mobile/pages/planner/service/planner_provider.dart';
 import 'package:acs_upb_mobile/pages/timetable/model/events/class_event.dart';
+import 'package:acs_upb_mobile/pages/timetable/model/events/task_event.dart';
 import 'package:acs_upb_mobile/pages/timetable/model/events/uni_event.dart';
 import 'package:acs_upb_mobile/pages/timetable/view/events/add_event_view.dart';
 import 'package:acs_upb_mobile/widgets/scaffold.dart';
@@ -31,6 +33,35 @@ class EventView extends StatefulWidget {
 }
 
 class _EventViewState extends State<EventView> {
+  List<String> hiddenEvents;
+  bool updating;
+
+  Future<void> updateHiddenEvents() async {
+    // If updating is null, hiddenEvents haven't been initialized yet so they're not
+    // technically "updating"
+    if (updating != null) {
+      updating = true;
+    }
+
+    final PlannerProvider plannerProvider =
+        Provider.of<PlannerProvider>(context, listen: false);
+    final AuthProvider authProvider =
+        Provider.of<AuthProvider>(context, listen: false);
+    hiddenEvents =
+        await plannerProvider.fetchUserHiddenEvents(authProvider.uid);
+
+    updating = false;
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    updateHiddenEvents();
+  }
+
   Padding _colorIcon() => Padding(
         padding: const EdgeInsets.all(10),
         child: Container(
@@ -50,6 +81,33 @@ class _EventViewState extends State<EventView> {
     return AppScaffold(
       title: Text(S.current.navigationEventDetails),
       actions: [
+        if (mainEvent is TaskEvent)
+          AppScaffoldAction(
+            icon: !(hiddenEvents != null && hiddenEvents.contains(mainEvent.id))
+                ? Icons.visibility_outlined
+                : Icons.visibility_off_outlined,
+            onPressed: () async {
+              bool res;
+              if (hiddenEvents != null && hiddenEvents.contains(mainEvent.id)) {
+                hiddenEvents.remove(mainEvent.id);
+                res = await Provider.of<PlannerProvider>(context, listen: false)
+                    .setUserHiddenEvents(hiddenEvents, user.uid);
+                if (res != null) {
+                  await updateHiddenEvents();
+                  AppToast.show(S.current.messageEventShowSuccessfully);
+                }
+              } else {
+                hiddenEvents ??= <String>[];
+                hiddenEvents.add(mainEvent.id);
+                res = await Provider.of<PlannerProvider>(context, listen: false)
+                    .setUserHiddenEvents(hiddenEvents, user.uid);
+                if (res != null) {
+                  await updateHiddenEvents();
+                  AppToast.show(S.current.messageEventHiddenSuccessfully);
+                }
+              }
+            },
+          ),
         AppScaffoldAction(
           icon: Icons.edit_outlined,
           disabled: !mainEvent.editable || !user.canAddPublicInfo,
@@ -89,6 +147,7 @@ class _EventViewState extends State<EventView> {
                     children: <Widget>[
                       Text(
                           widget.eventInstance?.title ??
+                              mainEvent.name ??
                               mainEvent.type.toLocalizedString(),
                           style: Theme.of(context).textTheme.headline6),
                       const SizedBox(height: 4),

@@ -87,7 +87,7 @@ class RecurringUniEvent extends UniEvent {
 
   @override
   Iterable<UniEventInstance> generateInstances(
-      {DateInterval intersectingInterval}) sync* {
+      {DateInterval intersectingInterval, bool hidden = false}) sync* {
     final RecurrenceRule rrule = rruleBasedOnCalendar;
 
     // Calculate recurrences

@@ -14,22 +14,22 @@ import 'intl/messages_all.dart';
 
 class S {
   S();
-
+  
   static S current;
-
+  
   static const AppLocalizationDelegate delegate =
-  AppLocalizationDelegate();
+    AppLocalizationDelegate();
 
   static Future<S> load(Locale locale) {
     final name = (locale.countryCode?.isEmpty ?? false) ? locale.languageCode : locale.toString();
-    final localeName = Intl.canonicalizedLocale(name);
+    final localeName = Intl.canonicalizedLocale(name); 
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
       S.current = S();
-
+      
       return S.current;
     });
-  }
+  } 
 
   static S of(BuildContext context) {
     return Localizations.of<S>(context, S);
@@ -515,6 +515,46 @@ class S {
     );
   }
 
+  /// `Ongoing`
+  String get labelOngoing {
+    return Intl.message(
+      'Ongoing',
+      name: 'labelOngoing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Coming up`
+  String get labelComingUp {
+    return Intl.message(
+      'Coming up',
+      name: 'labelComingUp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hidden`
+  String get labelHidden {
+    return Intl.message(
+      'Hidden',
+      name: 'labelHidden',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Past`
+  String get labelPast {
+    return Intl.message(
+      'Past',
+      name: 'labelPast',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Shortcuts`
   String get sectionShortcuts {
     return Intl.message(
@@ -550,6 +590,16 @@ class S {
     return Intl.message(
       'Events coming up',
       name: 'sectionEventsComingUp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Planner`
+  String get sectionPlanner {
+    return Intl.message(
+      'Planner',
+      name: 'sectionPlanner',
       desc: '',
       args: [],
     );
@@ -610,6 +660,16 @@ class S {
     return Intl.message(
       'Other',
       name: 'shortcutTypeOther',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Assignment 1`
+  String get hintAssignmentName {
+    return Intl.message(
+      'Assignment 1',
+      name: 'hintAssignmentName',
       desc: '',
       args: [],
     );
@@ -1015,6 +1075,66 @@ class S {
     );
   }
 
+  /// `Choose dates`
+  String get actionChooseDates {
+    return Intl.message(
+      'Choose dates',
+      name: 'actionChooseDates',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Start date`
+  String get actionChooseStartDate {
+    return Intl.message(
+      'Start date',
+      name: 'actionChooseStartDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hard deadline`
+  String get actionChooseHardDeadlineDate {
+    return Intl.message(
+      'Hard deadline',
+      name: 'actionChooseHardDeadlineDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Has soft deadline?`
+  String get actionChooseHasSoftDeadline {
+    return Intl.message(
+      'Has soft deadline?',
+      name: 'actionChooseHasSoftDeadline',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Soft deadline`
+  String get actionChooseSoftDeadlineDate {
+    return Intl.message(
+      'Soft deadline',
+      name: 'actionChooseSoftDeadlineDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Daily penalties after Soft deadline`
+  String get messagePenalties {
+    return Intl.message(
+      'Daily penalties after Soft deadline',
+      name: 'messagePenalties',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Something went wrong.`
   String get errorSomethingWentWrong {
     return Intl.message(
@@ -1080,6 +1200,16 @@ class S {
     return Intl.message(
       'Please provide your last name(s).',
       name: 'errorMissingLastName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please provide the name`
+  String get errorMissingTaskName {
+    return Intl.message(
+      'Please provide the name',
+      name: 'errorMissingTaskName',
       desc: '',
       args: [],
     );
@@ -2490,6 +2620,26 @@ class S {
     return Intl.message(
       'Profile picture updated successfully.',
       name: 'messagePictureUpdatedSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Event is now hidden.`
+  String get messageEventHiddenSuccessfully {
+    return Intl.message(
+      'Event is now hidden.',
+      name: 'messageEventHiddenSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Event is now visible.`
+  String get messageEventShowSuccessfully {
+    return Intl.message(
+      'Event is now visible.',
+      name: 'messageEventShowSuccessfully',
       desc: '',
       args: [],
     );

@@ -22,6 +22,7 @@ import 'package:acs_upb_mobile/pages/people/model/person.dart';
 import 'package:acs_upb_mobile/pages/people/service/person_provider.dart';
 import 'package:acs_upb_mobile/pages/people/view/people_page.dart';
 import 'package:acs_upb_mobile/pages/people/view/person_view.dart';
+import 'package:acs_upb_mobile/pages/planner/service/planner_provider.dart';
 import 'package:acs_upb_mobile/pages/portal/model/website.dart';
 import 'package:acs_upb_mobile/pages/portal/service/website_provider.dart';
 import 'package:acs_upb_mobile/pages/portal/view/portal_page.dart';
@@ -68,6 +69,8 @@ class MockFilterProvider extends Mock implements FilterProvider {}
 
 class MockClassProvider extends Mock implements ClassProvider {}
 
+class MockPlannerProvider extends Mock implements PlannerProvider {}
+
 class MockPersonProvider extends Mock implements PersonProvider {}
 
 class MockQuestionProvider extends Mock implements QuestionProvider {}
@@ -85,6 +88,7 @@ Future<void> main() async {
   WebsiteProvider mockWebsiteProvider;
   FilterProvider mockFilterProvider;
   ClassProvider mockClassProvider;
+  PlannerProvider mockPlannerProvider;
   PersonProvider mockPersonProvider;
   MockQuestionProvider mockQuestionProvider;
   MockNewsProvider mockNewsProvider;
@@ -119,6 +123,8 @@ Future<void> main() async {
               create: (_) => mockFilterProvider),
           ChangeNotifierProvider<ClassProvider>(
               create: (_) => mockClassProvider),
+          ChangeNotifierProvider<PlannerProvider>(
+              create: (_) => mockPlannerProvider),
           ChangeNotifierProvider<PersonProvider>(
               create: (_) => mockPersonProvider),
           ChangeNotifierProvider<QuestionProvider>(
@@ -306,6 +312,11 @@ Future<void> main() async {
     mockClassProvider = MockClassProvider();
     // ignore: invalid_use_of_protected_member
     when(mockClassProvider.hasListeners).thenReturn(false);
+    mockPlannerProvider = MockPlannerProvider();
+    // ignore: invalid_use_of_protected_member
+    when(mockPlannerProvider.hasListeners).thenReturn(false);
+    when(mockPlannerProvider.fetchUserHiddenEvents(any))
+        .thenAnswer((_) => Future.value([]));
     final userClassHeaders = [
       ClassHeader(
         id: '3',
@@ -497,6 +508,9 @@ Future<void> main() async {
         .thenAnswer((_) => Future.value(<UniEventInstance>[]));
     when(mockEventProvider.getUpcomingEvents(LocalDate.today(),
             limit: anyNamed('limit')))
+        .thenAnswer((_) => Future.value(<UniEventInstance>[]));
+    when(mockEventProvider.getAssignments(
+            limit: anyNamed('limit'), retrievePast: anyNamed('retrievePast')))
         .thenAnswer((_) => Future.value(<UniEventInstance>[]));
     when(mockEventProvider.getAllEventsOfClass(any))
         .thenAnswer((_) => Future.value(<UniEvent>[]));

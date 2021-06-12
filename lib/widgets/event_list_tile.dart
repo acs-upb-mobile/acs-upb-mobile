@@ -25,7 +25,7 @@ class EventListTile extends StatelessWidget {
           ),
         ),
       ),
-      title: Text(uniEvent.type.toLocalizedString()),
+      title: Text(uniEvent.name ?? uniEvent.type.toLocalizedString()),
       subtitle: Text(
         uniEvent.info,
         style: Theme.of(context)

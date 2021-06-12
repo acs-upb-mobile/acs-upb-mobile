@@ -1,6 +1,7 @@
 import 'package:acs_upb_mobile/authentication/service/auth_provider.dart';
 import 'package:acs_upb_mobile/generated/l10n.dart';
 import 'package:acs_upb_mobile/navigation/routes.dart';
+import 'package:acs_upb_mobile/pages/home/tasks_card.dart';
 import 'package:acs_upb_mobile/pages/home/faq_card.dart';
 import 'package:acs_upb_mobile/pages/home/favourite_websites_card.dart';
 import 'package:acs_upb_mobile/pages/home/news_feed_card.dart';
@@ -34,6 +35,8 @@ class HomePage extends StatelessWidget {
           if (authProvider.isAuthenticated) ProfileCard(),
           if (authProvider.isAuthenticated && !authProvider.isAnonymous)
             UpcomingEventsCard(onShowMore: () => tabController?.animateTo(1)),
+          if (authProvider.isAuthenticated && !authProvider.isAnonymous)
+            TasksCard(onShowMore: () => tabController?.animateTo(1)),
           if (authProvider.isAuthenticated && !authProvider.isAnonymous)
             FavouriteWebsitesCard(
                 onShowMore: () => tabController?.animateTo(2)),

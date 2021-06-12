@@ -1,14 +1,16 @@
 import 'package:acs_upb_mobile/pages/classes/model/class.dart';
 import 'package:acs_upb_mobile/pages/timetable/model/academic_calendar.dart';
+import 'package:acs_upb_mobile/pages/timetable/model/events/all_day_event.dart';
 import 'package:acs_upb_mobile/pages/timetable/model/events/uni_event.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:time_machine/time_machine.dart';
 
-class AllDayUniEvent extends UniEvent {
-  AllDayUniEvent({
+class TaskEvent extends AllDayUniEvent {
+  TaskEvent({
     @required LocalDate start,
-    @required LocalDate end,
+    @required LocalDate hardDeadline,
     @required String id,
+    LocalDate softDeadline,
     String name,
     String location,
     Color color,
@@ -18,14 +20,17 @@ class AllDayUniEvent extends UniEvent {
     List<String> relevance,
     String degree,
     String addedBy,
-    bool editable,
-  })  : startDate = start,
-        endDate = end,
+    double grade,
+    double penalties,
+  })  : hardDeadline = hardDeadline ?? hardDeadline,
+        softDeadline = softDeadline ?? softDeadline,
+        grade = grade ?? 0,
+        penalties = penalties ?? 0,
         super(
+            start: start,
+            end: hardDeadline,
             name: name,
             location: location,
-            start: start.atMidnight(),
-            duration: Period.differenceBetweenDates(start, end.addDays(1)),
             id: id,
             color: color,
             type: type,
@@ -34,21 +39,26 @@ class AllDayUniEvent extends UniEvent {
             relevance: relevance,
             degree: degree,
             addedBy: addedBy,
-            editable: editable);
+            editable: true);
 
-  LocalDate startDate;
-  LocalDate endDate;
+  LocalDate softDeadline;
+  LocalDate hardDeadline;
+  double grade;
+  double penalties;
 
   @override
   Iterable<UniEventInstance> generateInstances(
       {DateInterval intersectingInterval, bool hidden = false}) sync* {
     yield UniEventInstance(
       id: id,
-      title: name,
+      title: name + (classHeader != null ? ' ${classHeader.acronym}' : ''),
       mainEvent: this,
       start: startDate.atMidnight(),
       end: endDate.addDays(1).atMidnight(),
       color: color,
+      grade: grade,
+      penalties: penalties,
+      hidden: hidden,
     );
   }
 }

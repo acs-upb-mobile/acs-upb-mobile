@@ -6,6 +6,7 @@ class User {
       @required this.firstName,
       @required this.lastName,
       this.classes,
+      this.hiddenEvents,
       int permissionLevel})
       : permissionLevel = permissionLevel ?? 0;
 
@@ -16,6 +17,7 @@ class User {
 
   /// Info about the user's assigned group (including degree, year of study, series etc)
   List<String> classes;
+  List<String> hiddenEvents;
 
   int permissionLevel;
 
