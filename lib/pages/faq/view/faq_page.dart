@@ -5,7 +5,6 @@ import 'package:acs_upb_mobile/resources/utils.dart';
 import 'package:acs_upb_mobile/widgets/scaffold.dart';
 import 'package:acs_upb_mobile/widgets/search_bar.dart';
 import 'package:acs_upb_mobile/widgets/selectable.dart';
-import 'package:dynamic_text_highlighting/dynamic_text_highlighting.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
@@ -149,12 +148,9 @@ class _QuestionsListState extends State<QuestionsList> {
           return ExpansionTile(
             key: ValueKey(widget.questions[index].question),
             title: filteredWords.isNotEmpty
-                ? DynamicTextHighlighting(
-                    text: widget.questions[index].question,
+                ? Text(
+                    widget.questions[index].question,
                     style: Theme.of(context).textTheme.subtitle1,
-                    highlights: filteredWords,
-                    color: Theme.of(context).accentColor,
-                    caseSensitive: false,
                   )
                 : Text(
                     widget.questions[index].question,
@@ -165,7 +161,7 @@ class _QuestionsListState extends State<QuestionsList> {
                 padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
                 child: MarkdownBody(
                   fitContent: false,
-                  onTapLink: Utils.launchURL,
+                  onTapLink: (text, link, title) => Utils.launchURL(link),
                   /*
                   This is a workaround because the strings in Firebase represent
                   newlines as '\n' and Firebase replaces them with '\\n'. We need

@@ -5,8 +5,8 @@ import 'package:acs_upb_mobile/widgets/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:pedantic/pedantic.dart';
+import 'package:pref/pref.dart';
 import 'package:provider/provider.dart';
-import 'package:time_machine/time_machine.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 export 'package:acs_upb_mobile/resources/platform.dart'
@@ -32,6 +32,8 @@ extension EnumUtils on Object {
     return toString().split('.').last;
   }
 }
+
+PrefServiceShared prefService;
 
 class Utils {
   Utils._();
@@ -62,10 +64,4 @@ class Utils {
 
   static PackageInfo packageInfo = PackageInfo(
       version: 'Unknown', buildNumber: 'Unknown', appName: 'Unknown');
-}
-
-extension PeriodExtension on Period {
-  Duration toDuration() {
-    return Duration(hours: hours, minutes: minutes);
-  }
 }

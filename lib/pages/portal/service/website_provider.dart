@@ -8,7 +8,6 @@ import 'package:acs_upb_mobile/resources/utils.dart';
 import 'package:acs_upb_mobile/widgets/toast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:preferences/preference_service.dart';
 
 extension UserExtension on User {
   /// Check if there is at least one website that the [User] has permission to edit
@@ -47,7 +46,7 @@ extension WebsiteCategoryExtension on WebsiteCategory {
 
 extension WebsiteExtension on Website {
   // [ownerUid] should be provided if the website is user-private
-  static Website fromSnap(DocumentSnapshot snap, {String ownerUid}) {
+  static Website fromSnap(DocumentSnapshot<Map<String, dynamic>> snap, {String ownerUid}) {
     final data = snap.data();
     return Website(
       ownerUid: ownerUid ?? data['addedBy'],
@@ -113,7 +112,7 @@ class WebsiteProvider with ChangeNotifier {
       return _initializeNumberOfVisitsLocally(websites);
     }
     try {
-      final DocumentReference userDoc = _db.collection('users').doc(uid);
+      final DocumentReference<Map<String, dynamic>> userDoc = _db.collection('users').doc(uid);
       final userData = (await userDoc.get()).data();
 
       if (userData != null) {
@@ -135,16 +134,16 @@ class WebsiteProvider with ChangeNotifier {
 
   /// Initializes the number of visits of websites with the value stored locally.
   ///
-  /// Because [PrefService] doesn't support storing maps, the
+  /// Because [prefService] doesn't support storing maps, the
   /// data is stored in 2 lists: the list of website IDs (`websiteIds`) and the list
   /// with the number of visits (`websiteVisits`), where `websiteVisits[i]` is the
   /// number of times the user accessed website with ID `websiteIds[i]`.
   Future<bool> _initializeNumberOfVisitsLocally(List<Website> websites) async {
     try {
       final List<String> websiteIds =
-          PrefService.sharedPreferences.getStringList('websiteIds') ?? [];
+          prefService.sharedPreferences.getStringList('websiteIds') ?? [];
       final List<String> websiteVisits =
-          PrefService.sharedPreferences.getStringList('websiteVisits') ?? [];
+          prefService.sharedPreferences.getStringList('websiteVisits') ?? [];
 
       final visitsByWebsiteId = Map<String, int>.from(websiteIds.asMap().map(
           (index, key) =>
@@ -168,7 +167,7 @@ class WebsiteProvider with ChangeNotifier {
         return await incrementNumberOfVisitsLocally(website);
       }
 
-      final DocumentReference userDoc = _db.collection('users').doc(uid);
+      final DocumentReference<Map<String, dynamic>> userDoc = _db.collection('users').doc(uid);
       final userData = (await userDoc.get()).data();
 
       if (userData != null) {
@@ -191,7 +190,7 @@ class WebsiteProvider with ChangeNotifier {
 
   /// Increments the number of visits of [website], both in-memory and on the local storage.
   ///
-  /// Because [PrefService] doesn't support storing maps, the
+  /// Because [prefService] doesn't support storing maps, the
   /// data is stored in 2 lists: the list of website IDs (`websiteIds`) and the list
   /// with the number of visits `websiteVisits`, where `websiteVisits[i]` is the
   /// number of times the user accessed website with ID `websiteIds[i]`.
@@ -199,9 +198,9 @@ class WebsiteProvider with ChangeNotifier {
     try {
       website.numberOfVisits++;
       final List<String> websiteIds =
-          PrefService.sharedPreferences.getStringList('websiteIds') ?? [];
+          prefService.sharedPreferences.getStringList('websiteIds') ?? [];
       final List<String> websiteVisits =
-          PrefService.sharedPreferences.getStringList('websiteVisits') ?? [];
+          prefService.sharedPreferences.getStringList('websiteVisits') ?? [];
 
       if (websiteIds.contains(website.id)) {
         final int index = websiteIds.indexOf(website.id);
@@ -209,10 +208,10 @@ class WebsiteProvider with ChangeNotifier {
       } else {
         websiteIds.add(website.id);
         websiteVisits.add(website.numberOfVisits.toString());
-        await PrefService.sharedPreferences
+        await prefService.sharedPreferences
             .setStringList('websiteIds', websiteIds);
       }
-      await PrefService.sharedPreferences
+      await prefService.sharedPreferences
           .setStringList('websiteVisits', websiteVisits);
       notifyListeners();
       return true;
@@ -231,14 +230,14 @@ class WebsiteProvider with ChangeNotifier {
         List<DocumentSnapshot> documents = [];
 
         if (filter == null) {
-          final QuerySnapshot qSnapshot =
+          final QuerySnapshot<Map<String, dynamic>> qSnapshot =
               await _db.collection('websites').get();
           documents.addAll(qSnapshot.docs);
         } else {
           // Documents without a 'relevance' field are relevant for everyone
           final query =
               _db.collection('websites').where('relevance', isNull: true);
-          final QuerySnapshot qSnapshot = await query.get();
+          final QuerySnapshot<Map<String, dynamic>> qSnapshot = await query.get();
           documents.addAll(qSnapshot.docs);
 
           for (final string in filter.relevantNodes) {
@@ -247,7 +246,7 @@ class WebsiteProvider with ChangeNotifier {
                 .collection('websites')
                 .where('degree', isEqualTo: filter.baseNode)
                 .where('relevance', arrayContains: string);
-            final QuerySnapshot qSnapshot = await query.get();
+            final QuerySnapshot<Map<String, dynamic>> qSnapshot = await query.get();
             documents.addAll(qSnapshot.docs);
           }
         }
@@ -259,14 +258,14 @@ class WebsiteProvider with ChangeNotifier {
         documents =
             documents.where((doc) => seenDocumentIds.add(doc.id)).toList();
 
-        websites.addAll(documents.map(WebsiteExtension.fromSnap));
+        websites.addAll(documents.map((doc) => WebsiteExtension.fromSnap(doc)));
       }
 
       // Get user-added websites
       if (uid != null) {
         final DocumentReference ref =
             FirebaseFirestore.instance.collection('users').doc(uid);
-        final QuerySnapshot qSnapshot = await ref.collection('websites').get();
+        final QuerySnapshot<Map<String, dynamic>> qSnapshot = await ref.collection('websites').get();
 
         websites.addAll(qSnapshot.docs
             .map((doc) => WebsiteExtension.fromSnap(doc, ownerUid: uid)));

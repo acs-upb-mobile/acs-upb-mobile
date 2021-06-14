@@ -12,7 +12,7 @@ import 'package:firebase_auth/firebase_auth.dart' as firebase_auth show User;
 import 'package:flutter/material.dart';
 
 extension DatabaseUser on User {
-  static User fromSnap(DocumentSnapshot snap) {
+  static User fromSnap(DocumentSnapshot<Map<String, dynamic>> snap) {
     final data = snap.data();
     return User(
         uid: snap.id,

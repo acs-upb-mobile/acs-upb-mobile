@@ -8,7 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:pie_chart/pie_chart.dart';
 import 'package:provider/provider.dart';
 import 'package:quiver/iterables.dart';
-import 'package:time_machine/time_machine.dart';
+
+extension DateTimeExtension on DateTime {
+  String toDateString() => '$day/$month/$year';
+}
 
 class GradingChart extends StatefulWidget {
   const GradingChart(
@@ -22,7 +25,7 @@ class GradingChart extends StatefulWidget {
   final Map<String, double> grading;
   final bool withHeader;
   final void Function(Map<String, double>) onSave;
-  final LocalDateTime lastUpdated;
+  final DateTime lastUpdated;
 
   @override
   _GradingChartState createState() => _GradingChartState();
@@ -55,7 +58,7 @@ class _GradingChartState extends State<GradingChart> {
                       ),
                       if (widget.grading != null)
                         Text(
-                          '${S.current.labelLastUpdated}: ${widget.lastUpdated?.toString('dd/MM/yyyy') ?? '?'}',
+                          '${S.current.labelLastUpdated}: ${widget.lastUpdated?.toDateString() ?? '?'}',
                           textAlign: TextAlign.left,
                         ),
                     ],
@@ -88,14 +91,18 @@ class _GradingChartState extends State<GradingChart> {
             if (gradingDataMap != null && gradingDataMap.isNotEmpty)
               PieChart(
                 dataMap: gradingDataMap,
-                legendPosition: LegendPosition.left,
-                legendStyle: Theme.of(context).textTheme.subtitle2,
                 chartRadius: 250,
-                chartValueStyle: Theme.of(context)
-                    .textTheme
-                    .subtitle2
-                    .copyWith(fontWeight: FontWeight.bold, fontSize: 12),
-                decimalPlaces: 1,
+                legendOptions: LegendOptions(
+                  legendPosition: LegendPosition.left,
+                  legendTextStyle: Theme.of(context).textTheme.subtitle2,
+                ),
+                chartValuesOptions: ChartValuesOptions(
+                  chartValueStyle: Theme.of(context)
+                      .textTheme
+                      .subtitle2
+                      .copyWith(fontWeight: FontWeight.bold, fontSize: 12),
+                  decimalPlaces: 1,
+                ),
               )
             else
               Padding(

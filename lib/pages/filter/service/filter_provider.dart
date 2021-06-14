@@ -1,10 +1,10 @@
 import 'package:acs_upb_mobile/authentication/service/auth_provider.dart';
 import 'package:acs_upb_mobile/generated/l10n.dart';
 import 'package:acs_upb_mobile/pages/filter/model/filter.dart';
+import 'package:acs_upb_mobile/resources/utils.dart';
 import 'package:acs_upb_mobile/widgets/toast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:preferences/preference_service.dart';
 
 extension FilterNodeExtension on FilterNode {
   static FilterNode fromMap(Map<String, dynamic> map, String parentName) {
@@ -25,7 +25,7 @@ class FilterProvider with ChangeNotifier {
       bool filterEnabled,
       this.defaultDegree,
       this.defaultRelevance})
-      : _enabled = filterEnabled ?? PrefService.get('relevance_filter') ?? true,
+      : _enabled = filterEnabled ?? prefService.get('relevance_filter') ?? true,
         _relevantNodes = defaultRelevance {
     if (defaultRelevance != null && !defaultRelevance.contains('All')) {
       if (defaultDegree == null) {
@@ -60,7 +60,7 @@ class FilterProvider with ChangeNotifier {
 
     if (global) {
       // TODO(IoanaAlexandru): Remove this property
-      PrefService.setBool('relevance_filter', true);
+      prefService.set<bool>('relevance_filter', true);
     }
 
     notifyListeners();
@@ -79,7 +79,7 @@ class FilterProvider with ChangeNotifier {
   void enableFilter() {
     _enabled = true;
     if (global) {
-      PrefService.setBool('relevance_filter', true);
+      prefService.set<bool>('relevance_filter', true);
     }
 
     notifyListeners();
@@ -90,7 +90,7 @@ class FilterProvider with ChangeNotifier {
 
     _enabled = false;
     if (global) {
-      PrefService.setBool('relevance_filter', false);
+      prefService.set<bool>('relevance_filter', false);
     }
 
     notifyListeners();

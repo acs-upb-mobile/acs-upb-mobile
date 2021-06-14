@@ -18,7 +18,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image/image.dart' as im;
-import 'package:preferences/preference_title.dart';
+import 'package:pref/pref.dart';
 import 'package:provider/provider.dart';
 
 class EditProfilePage extends StatefulWidget {
@@ -325,9 +325,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
         child: ListView(padding: const EdgeInsets.all(12), children: [
           AccountNotVerifiedWarning(),
           buildEditableAvatar(context),
-          PreferenceTitle(
-            S.current.labelPersonalInformation,
-            leftPadding: 0,
+          PrefTitle(
+            title: Text(S.current.labelPersonalInformation),
+            padding: const EdgeInsets.only(left: 0, bottom: 0, top: 20),
           ),
           const SizedBox(height: 10),
           Form(
@@ -382,9 +382,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
             ),
           ),
           const SizedBox(height: 10),
-          PreferenceTitle(
-            S.current.labelClass,
-            leftPadding: 0,
+          PrefTitle(
+            title: Text(S.current.labelClass),
+            padding: const EdgeInsets.only(left: 0, bottom: 0, top: 20),
           ),
           FilterDropdown(
             initialPath: path,

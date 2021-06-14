@@ -4,7 +4,6 @@ import 'package:acs_upb_mobile/pages/people/service/person_provider.dart';
 import 'package:acs_upb_mobile/pages/people/view/person_view.dart';
 import 'package:acs_upb_mobile/widgets/scaffold.dart';
 import 'package:acs_upb_mobile/widgets/search_bar.dart';
-import 'package:dynamic_text_highlighting/dynamic_text_highlighting.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -113,12 +112,9 @@ class _PeopleListState extends State<PeopleList> {
             backgroundImage: NetworkImage(widget.people[index].photo),
           ),
           title: filteredWords.isNotEmpty
-              ? DynamicTextHighlighting(
-                  text: widget.people[index].name,
+              ? Text(
+                  widget.people[index].name,
                   style: Theme.of(context).textTheme.subtitle1,
-                  highlights: filteredWords,
-                  color: Theme.of(context).accentColor,
-                  caseSensitive: false,
                 )
               : Text(
                   widget.people[index].name,

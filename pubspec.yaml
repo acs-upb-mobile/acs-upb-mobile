@@ -20,160 +20,164 @@ environment:
 
 dependencies:
   # Async utility classes
-  async: ^2.4.0
+  async: ^2.6.1
 
   # Helps with sizing text to fit container
-  auto_size_text: ^2.1.0
+  auto_size_text: ^3.0.0-nullsafety.0
 
   # Dart helper methods
-  basic_utils: ^1.2.0
+  basic_utils: ^3.1.0
 
   # Caching utilities
-  cached_network_image: ^2.0.0
+  cached_network_image: ^3.0.0
 
   # Firebase Firestore
-  cloud_firestore: ^0.14.3+1
+  cloud_firestore: ^2.2.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^0.1.2
+  cupertino_icons: ^1.0.3
 
   # Date & time picker widget
-  datetime_picker_formfield: ^1.0.0
+  datetime_picker_formfield: ^2.0.0
 
   # Dotted line painter
-  dotted_line: ^2.0.1
+  dotted_line: ^3.0.0
 
   # Highlight words
-  dynamic_text_highlighting: ^2.2.0
+#  dynamic_text_highlighting: ^2.2.0
 
   # Package for dynamically changing the app theme
-  dynamic_theme: ^1.0.1
+#  dynamic_theme: ^1.0.1
+  easy_dynamic_theme: ^2.2.0
 
   # Firebase products
-  firebase_analytics: ^5.0.2
-  firebase_auth: ^0.18.3+1
-  firebase_core: ^0.5.2+1
-  firebase_storage: ^5.1.0
+  firebase_analytics: ^8.1.1
+  firebase_auth: ^1.3.0
+  firebase_core: ^1.2.1
+  firebase_storage: ^8.1.1
 
   # Flutter SDK
   flutter:
     sdk: flutter
 
   # Color picker widget
-  flutter_colorpicker: ^0.3.4
+  flutter_colorpicker: ^0.4.0
 
   # Allow using feather icons (nice outlined icons)
-  flutter_feather_icons: ^1.0.2
+  flutter_feather_icons: ^2.0.0+1
 
   # Package that allows for supporting multiple languages
   flutter_localizations:
     sdk: flutter
 
   # Display markdown-formatted text
-  flutter_markdown: ^0.4.4
+  flutter_markdown: ^0.6.2
 
   # Use an in-app browser to ask user for Google Calendar permission
-  flutter_web_browser: ^0.13.1
+  flutter_web_browser: ^0.14.0
 
   # Used for Google Calendar API
-  googleapis: 1.0.0
+  googleapis: ^3.0.0
 
   # Used for getting the permission of the user to access their Google Calendar
-  googleapis_auth: 0.2.12+1
+  googleapis_auth: ^1.1.0
 
   # Image decoder
-  image: ^2.1.18
+  image: ^3.0.2
 
   # Image importer
-  image_picker: ^0.6.7+4
+  image_picker: ^0.8.0+1
 
   # Web image importer
-  image_picker_web: ^1.0.9
+  image_picker_web: ^2.0.2
 
   # Interval picker widget
-  interval_time_picker: ^0.1.0
+#  interval_time_picker: ^0.1.0
 
   # Displays a custom toast
-  oktoast: ^2.3.1+1
+  oktoast: ^3.0.0
 
   # App information
-  package_info_plus: ^0.6.4
+  package_info_plus: ^1.0.1
 
   # Draws pie charts
-  pie_chart: ^3.1.1
+  pie_chart: ^5.0.0
 
   # Allows getting the position of taps
-  positioned_tap_detector: ^1.0.3
+  positioned_tap_detector_2: ^1.0.0
 
   # Used to create preference screens
-  preferences: ^5.1.0
+  pref: ^2.2.0
 
   # Dart utilities
-  quiver: ^2.1.3
+  quiver: ^3.0.1
 
   # String utility methods
-  recase: ^3.0.0
+  recase: ^4.0.0
 
   # Event recurrence rule handler
-  rrule: ^0.1.2
+  rrule: ^0.2.3
 
   # Async utilities
-  rxdart: ^0.24.1
+  rxdart: ^0.26.0
 
   # Support lock/mutex
-  synchronized: ^2.2.0
+  synchronized: ^3.0.0
 
   # DateTime utilities
-  time_machine: ^0.9.16
+#  time_machine: ^0.9.16
+
+  # Time interval picker
+  time_range_picker: ^2.0.1
 
   # Timetable widget
-  timetable: ^0.2.9
+  timetable: ^1.0.0-alpha.0
 
   # URL opener
-  url_launcher: ^5.4.2
+  url_launcher: ^6.0.6
 
   # Useful validators
-  validators: ^2.0.0
+  validators: ^3.0.0
 
   # Web scraper
-  web_scraper: ^0.0.6
+  web_scraper: ^0.1.4
 
 dev_dependencies:
   # Code analysis
-  extra_pedantic: 1.2.0
+  extra_pedantic: ^1.5.0
 
   # Simplifies updating the launcher icon
-  flutter_launcher_icons: ^0.7.4
+  flutter_launcher_icons: ^0.9.0
 
   # Simplifies updating the launcher name
-  flutter_launcher_name: ^0.0.1
+#  flutter_launcher_name: ^0.0.1
 
   # Generates native code for adding splash screens on iOS & Android
-  flutter_native_splash: ^0.1.9
+  flutter_native_splash: ^1.1.8+4
 
   # Testing framework
   flutter_test:
     sdk: flutter
 
   # Helps with generating Dart code with the messages from `.arb` files
-  intl_translation: ^0.17.1
+#  intl_translation: ^0.17.1
 
   # Mocking utility used for testing
-  mockito: ^4.1.1
+  mockito: ^5.0.9
 
   # Testing utils
-  network_image_mock: ^1.0.2
+  network_image_mock: ^2.0.1
 
   # Provider platform interfaces of federated flutter plugins, for testing (like url_launcher)
-  plugin_platform_interface: ^1.0.0
+  plugin_platform_interface: ^2.0.0
 
   # Using Provider for state management
-  provider: ^4.0.4
+  provider: ^5.0.0
 
 dependency_overrides:
   # Temporary workaround to bypass intl_translation incompatibility
-  intl: ^0.17.0-nullsafety.2
+#  intl: ^0.17.0-nullsafety.2
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -189,8 +193,8 @@ flutter:
   - assets/icons/
   - assets/illustrations/
   - assets/images/
-  - packages/time_machine/data/cultures/cultures.bin
-  - packages/time_machine/data/tzdb/tzdb.bin
+#  - packages/time_machine/data/cultures/cultures.bin
+#  - packages/time_machine/data/tzdb/tzdb.bin
 
   fonts:
   - family: CustomIcons

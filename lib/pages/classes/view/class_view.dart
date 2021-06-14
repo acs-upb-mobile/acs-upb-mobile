@@ -2,7 +2,6 @@ import 'package:acs_upb_mobile/authentication/service/auth_provider.dart';
 import 'package:acs_upb_mobile/generated/l10n.dart';
 import 'package:acs_upb_mobile/pages/classes/model/class.dart';
 import 'package:acs_upb_mobile/pages/classes/service/class_provider.dart';
-import 'package:acs_upb_mobile/pages/classes/view/class_events_card.dart';
 import 'package:acs_upb_mobile/pages/classes/view/grading_view.dart';
 import 'package:acs_upb_mobile/pages/classes/view/shortcut_view.dart';
 import 'package:acs_upb_mobile/pages/people/service/person_provider.dart';
@@ -17,7 +16,7 @@ import 'package:acs_upb_mobile/widgets/toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:positioned_tap_detector/positioned_tap_detector.dart';
+import 'package:positioned_tap_detector_2/positioned_tap_detector_2.dart';
 import 'package:provider/provider.dart';
 
 class ClassView extends StatefulWidget {
@@ -65,7 +64,7 @@ class _ClassViewState extends State<ClassView> {
                         const SizedBox(height: 12),
                         shortcuts(context),
                         const SizedBox(height: 12),
-                        ClassEventsCard(widget.classHeader.id),
+//                        ClassEventsCard(widget.classHeader.id),
                         const SizedBox(height: 12),
                         GradingChart(
                           grading: classInfo.grading,
@@ -185,7 +184,7 @@ class _ClassViewState extends State<ClassView> {
     final classProvider = Provider.of<ClassProvider>(context);
     final classViewContext = context;
 
-    return PositionedTapDetector(
+    return PositionedTapDetector2(
       onTap: (_) => Utils.launchURL(shortcut.link),
       onLongPress: (position) async {
         final RenderBox overlay =

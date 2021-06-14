@@ -46,7 +46,7 @@ class RequestProvider {
     if (userAlreadyRequestedCache != null) return userAlreadyRequestedCache;
 
     try {
-      final DocumentSnapshot snap =
+      final DocumentSnapshot<Map<String, dynamic>> snap =
           await _db.collection('forms').doc(userId).get();
       if (snap.data() != null) {
         return userAlreadyRequestedCache = true;

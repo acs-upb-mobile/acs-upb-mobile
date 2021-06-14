@@ -7,7 +7,7 @@ import 'package:flutter/cupertino.dart';
 class QuestionProvider with ChangeNotifier {
   Future<List<Question>> fetchQuestions({int limit}) async {
     try {
-      final QuerySnapshot qSnapshot = limit == null
+      final QuerySnapshot<Map<String, dynamic>> qSnapshot = limit == null
           ? await FirebaseFirestore.instance.collection('faq').get()
           : await FirebaseFirestore.instance
               .collection('faq')
@@ -23,7 +23,7 @@ class QuestionProvider with ChangeNotifier {
 }
 
 extension DatabaseQuestion on Question {
-  static Question fromSnap(DocumentSnapshot snap) {
+  static Question fromSnap(DocumentSnapshot<Map<String, dynamic>> snap) {
     final data = snap.data();
 
     final String question = data['question'];
