@@ -14,22 +14,22 @@ import 'intl/messages_all.dart';
 
 class S {
   S();
-
+  
   static S current;
-
+  
   static const AppLocalizationDelegate delegate =
-  AppLocalizationDelegate();
+    AppLocalizationDelegate();
 
   static Future<S> load(Locale locale) {
     final name = (locale.countryCode?.isEmpty ?? false) ? locale.languageCode : locale.toString();
-    final localeName = Intl.canonicalizedLocale(name);
+    final localeName = Intl.canonicalizedLocale(name); 
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
       S.current = S();
-
+      
       return S.current;
     });
-  }
+  } 
 
   static S of(BuildContext context) {
     return Localizations.of<S>(context, S);
@@ -510,6 +510,26 @@ class S {
     return Intl.message(
       'Now',
       name: 'labelNow',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `People`
+  String get labelPeople {
+    return Intl.message(
+      'People',
+      name: 'labelPeople',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Classes`
+  String get labelClasses {
+    return Intl.message(
+      'Classes',
+      name: 'labelClasses',
       desc: '',
       args: [],
     );
@@ -1645,6 +1665,26 @@ class S {
     );
   }
 
+  /// `Search`
+  String get navigationSearch {
+    return Intl.message(
+      'Search',
+      name: 'navigationSearch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Classes found`
+  String get navigationSearchResults {
+    return Intl.message(
+      'Classes found',
+      name: 'navigationSearchResults',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Show all`
   String get filterMenuShowAll {
     return Intl.message(
@@ -2490,6 +2530,26 @@ class S {
     return Intl.message(
       'Profile picture updated successfully.',
       name: 'messagePictureUpdatedSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Do you have another question?`
+  String get messageAnotherQuestion {
+    return Intl.message(
+      'Do you have another question?',
+      name: 'messageAnotherQuestion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Talk to Polly!`
+  String get messageTalkToChatbot {
+    return Intl.message(
+      'Talk to Polly!',
+      name: 'messageTalkToChatbot',
       desc: '',
       args: [],
     );
