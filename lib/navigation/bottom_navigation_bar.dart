@@ -59,7 +59,7 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar>
         ),
         bottomNavigationBar: SafeArea(
           child: SizedBox(
-            height: 50,
+            height: 52,
             child: Column(
               children: [
                 const Divider(indent: 0, endIndent: 0, height: 1),
@@ -72,36 +72,36 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar>
                             ? const Icon(Icons.home)
                             : const Icon(Icons.home_outlined),
                         text: S.current.navigationHome,
-                        iconMargin: const EdgeInsets.only(top: 5),
+                        iconMargin: EdgeInsets.zero,
                       ),
                       Tab(
                         icon: currentTab == 1
                             ? const Icon(Icons.calendar_today)
                             : const Icon(Icons.calendar_today_outlined),
                         text: S.current.navigationTimetable,
-                        iconMargin: const EdgeInsets.only(top: 5),
+                        iconMargin: EdgeInsets.zero,
                       ),
                       Tab(
                         icon: const Icon(FeatherIcons.globe),
                         text: S.current.navigationPortal,
-                        iconMargin: const EdgeInsets.only(top: 5),
+                        iconMargin: EdgeInsets.zero,
                       ),
                       Tab(
                         icon: currentTab == 3
                             ? const Icon(Icons.people)
                             : const Icon(Icons.people_outlined),
                         text: S.current.navigationPeople,
-                        iconMargin: const EdgeInsets.only(top: 5),
+                        iconMargin: EdgeInsets.zero,
                       ),
                     ],
                     labelColor: Theme.of(context).accentColor,
-                    labelPadding: EdgeInsets.zero,
-                    indicatorPadding: EdgeInsets.zero,
+                    labelPadding: const EdgeInsets.only(top: 4),
                     unselectedLabelColor:
                         Theme.of(context).unselectedWidgetColor,
-                    indicatorColor: Theme.of(context).accentColor,
+                    indicatorColor: Colors.transparent,
                   ),
                 ),
+                const SizedBox(height: 2)
               ],
             ),
           ),

@@ -38,7 +38,9 @@ class FilterProvider with ChangeNotifier {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   Filter _relevanceFilter; // filter cache
 
-  /// Whether this is the global filter instance and should update shared preferences
+  /// Whether this is the global filter instance and should update shared preferences.
+  /// If false, this is probably a local filter setting (e.g. for an event or website)
+  /// and should be the user's class by default.
   final bool global;
 
   final String defaultDegree;
@@ -138,18 +140,29 @@ class FilterProvider with ChangeNotifier {
           _relevanceFilter.setRelevantUpToRoot(node, defaultDegree);
         }
         _relevantNodes = _relevanceFilter.relevantNodes;
-      }
+      } else if (!global) {
+        if (_authProvider != null &&
+            _authProvider.isAuthenticated &&
+            !_authProvider.isAnonymous) {
+          final userSnap =
+              await _db.collection('users').doc(_authProvider.uid).get();
 
-      // Check if there is an existing setting already
-      if (_authProvider != null &&
-          _authProvider.isAuthenticated &&
-          !_authProvider.isAnonymous) {
-        final userSnap =
-            await _db.collection('users').doc(_authProvider.uid).get();
+          // Load class information from Firestore
+          _relevantNodes = List<String>.from(userSnap['class']);
+          _relevanceFilter?.setRelevantNodes(_relevantNodes);
+        }
+      } else {
+        // Check if there is an existing setting already
+        if (_authProvider != null &&
+            _authProvider.isAuthenticated &&
+            !_authProvider.isAnonymous) {
+          final userSnap =
+              await _db.collection('users').doc(_authProvider.uid).get();
 
-        //Load filter_nodes from Firestore
-        _relevantNodes = List<String>.from(userSnap['filter_nodes']);
-        _relevanceFilter?.setRelevantNodes(_relevantNodes);
+          // Load filter_nodes from Firestore
+          _relevantNodes = List<String>.from(userSnap['filter_nodes']);
+          _relevanceFilter?.setRelevantNodes(_relevantNodes);
+        }
       }
 
       notifyListeners();
