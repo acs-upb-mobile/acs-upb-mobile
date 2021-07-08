@@ -555,6 +555,16 @@ class S {
     );
   }
 
+  /// `Daily penalties`
+  String get labelDailyPenalties {
+    return Intl.message(
+      'Daily penalties',
+      name: 'labelDailyPenalties',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Shortcuts`
   String get sectionShortcuts {
     return Intl.message(
@@ -620,6 +630,16 @@ class S {
     return Intl.message(
       'Grading',
       name: 'sectionGrading',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Effort Graph`
+  String get sectionEffortGraph {
+    return Intl.message(
+      'Effort Graph',
+      name: 'sectionEffortGraph',
       desc: '',
       args: [],
     );

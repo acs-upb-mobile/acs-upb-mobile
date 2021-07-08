@@ -2,6 +2,7 @@ import 'package:acs_upb_mobile/authentication/service/auth_provider.dart';
 import 'package:acs_upb_mobile/pages/planner/service/planner_provider.dart';
 import 'package:acs_upb_mobile/pages/timetable/model/events/uni_event.dart';
 import 'package:acs_upb_mobile/pages/timetable/service/uni_event_provider.dart';
+import 'package:acs_upb_mobile/widgets/effort_graph.dart';
 import 'package:acs_upb_mobile/widgets/scaffold.dart';
 import 'package:acs_upb_mobile/widgets/tasks_list.dart';
 import 'package:flutter/cupertino.dart';
@@ -56,12 +57,15 @@ class _PlannerViewState extends State<PlannerView> {
         event.hidden == false &&
         event.end.toDateTimeLocal().isAfter(DateTime.now()));
 
-    Iterable<UniEventInstance> _hiddenEvents() => assignments.where((event) =>
-        event.hidden == true &&
-        event.end.toDateTimeLocal().isAfter(DateTime.now()));
+    Iterable<UniEventInstance> _hiddenEvents() =>
+        assignments.where((event) => event.hidden == true);
 
-    Iterable<UniEventInstance> _pastEvents() => assignments
-        .where((event) => event.end.toDateTimeLocal().isBefore(DateTime.now()));
+    Iterable<UniEventInstance> _pastEvents() => assignments.where((event) =>
+        event.hidden == false &&
+        event.end.toDateTimeLocal().isBefore(DateTime.now()));
+
+    Iterable<UniEventInstance> _visibleEvents() =>
+        assignments.where((event) => event.hidden == false);
 
     return AppScaffold(
       title: Text(S.current.sectionPlanner),
@@ -77,6 +81,12 @@ class _PlannerViewState extends State<PlannerView> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    EffortGraph(
+                      events: _visibleEvents().toList(),
+                      title: S.current.sectionEffortGraph,
+                      isExpanded: true,
+                    ),
+                    const SizedBox(width: 16),
                     TasksList(
                       events: _currentEvents().toList(),
                       title: S.current.labelComingUp,

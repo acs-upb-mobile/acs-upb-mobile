@@ -87,9 +87,9 @@ class _TasksListState extends State<TasksList>
               trailing: widget.events.isEmpty
                   ? const Icon(Icons.remove_outlined)
                   : isExpanded
-                      ? const Icon(Icons.arrow_drop_up_outlined)
+                      ? const Icon(Icons.arrow_drop_down_outlined)
                       : const Icon(
-                          Icons.arrow_drop_down_outlined,
+                          Icons.arrow_right_outlined,
                         ),
               title: Text(
                 widget.title,

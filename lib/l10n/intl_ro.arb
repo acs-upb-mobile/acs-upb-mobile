@@ -52,6 +52,7 @@
   "labelComingUp": "Urmează",
   "labelHidden": "Ascunse",
   "labelPast": "Trecute",
+  "labelDailyPenalties": "Depunctări zilnice",
 
   "sectionShortcuts": "Scurtături",
   "sectionEvents": "Evenimente",
@@ -60,6 +61,7 @@
   "sectionPlanner": "Planificator",
   "sectionFAQ": "Întrebări frecvente",
   "sectionGrading": "Punctaj",
+  "sectionEffortGraph": "Grafic efort",
 
   "shortcutTypeMain": "Pagina principală",
   "shortcutTypeClassbook": "Catalog",

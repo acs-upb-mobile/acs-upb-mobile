@@ -114,6 +114,7 @@ class _MyAppState extends State<MyApp> {
 
   Widget buildApp(BuildContext context, ThemeData theme) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: Utils.packageInfo.appName,
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,

@@ -52,6 +52,7 @@
   "labelComingUp": "Coming up",
   "labelHidden": "Hidden",
   "labelPast": "Past",
+  "labelDailyPenalties": "Daily penalties",
 
   "sectionShortcuts": "Shortcuts",
   "sectionEvents": "Events",
@@ -60,6 +61,7 @@
   "sectionPlanner": "Planner",
   "sectionFAQ": "FAQ",
   "sectionGrading": "Grading",
+  "sectionEffortGraph": "Effort Graph",
 
   "shortcutTypeMain": "Main page",
   "shortcutTypeClassbook": "Classbook",
